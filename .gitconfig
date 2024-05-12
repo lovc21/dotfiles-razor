@@ -1,0 +1,7 @@
+[user]
+	email = i-jakob.dekleva@devrev.ai
+	name = Jakob
+[credential]
+	helper = store
+[url "git@github.com:"]
+	insteadOf = https://github.com/
