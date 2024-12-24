@@ -108,10 +108,20 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # GoLang
-export GOROOT=/home/jakob/.go
+# Remove or comment out the old lines:
+# export GOROOT=/home/jakob/.go
+# export PATH=$GOROOT/bin:$PATH
+
+# Set GOROOT if you want, but usually Go can autodetect it:
+export GOROOT=/usr/local/go
+
+# Put /usr/local/go/bin first in your PATH
 export PATH=$GOROOT/bin:$PATH
-export GOPATH=/home/jakob/go
+
+# Keep your GOPATH wherever you like
+export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
+
 export GOPRIVATE=github.com/devrev/*
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
@@ -124,3 +134,10 @@ export PATH="$HOME/.local/bin:$PATH"
 
 #Neovim
 export PATH="$PATH:~/Downloads/nvim-linux64/bin"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
+
+eval "$(zoxide init --cmd cd zsh)"
