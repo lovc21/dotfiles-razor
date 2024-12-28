@@ -133,3 +133,4 @@ export NVM_DIR="$HOME/.nvm"
 export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+. "$HOME/.cargo/env"
