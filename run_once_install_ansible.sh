@@ -2,7 +2,10 @@
 
 set -e
 
-PLAYBOOK_PATH="${HOME}/.bootstrap/setup.yml"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+PLAYBOOK_PATH="${SCRIPT_DIR}/dot_bootstrap_using_ansible/setup.yml"
+INVENTORY_PATH="${SCRIPT_DIR}/hosts.ini"
 
 # print error messages in bash
 error_exit() {
@@ -73,12 +76,18 @@ install_ansible() {
   else
     error_exit "Ansible installation failed."
   fi
+}
+run_playbook() {
 
   if [ ! -f "${PLAYBOOK_PATH}" ]; then
     error_exit "Ansible playbook not found at ${PLAYBOOK_PATH}."
   fi
 
-  ansible-playbook -i hosts.ini ${PLAYBOOK_PATH} --ask-become-pass || error_exit "Ansible playbook execution failed."
+  if [ ! -f "${INVENTORY_PATH}" ]; then
+    error_exit "Ansible inventory file not found at ${INVENTORY_PATH}."
+  fi
+
+  ansible-playbook -i "${INVENTORY_PATH}" "${PLAYBOOK_PATH}" --ask-become-pass || error_exit "Ansible playbook execution failed."
 
   echo "Ansible playbook executed successfully."
 }
@@ -86,6 +95,7 @@ install_ansible() {
 # Main script execution
 main() {
   install_ansible
+  run_playbook
   echo "Ansible setup complete."
 }
 
