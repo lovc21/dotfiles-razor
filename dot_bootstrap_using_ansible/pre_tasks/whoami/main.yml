@@ -3,3 +3,7 @@
   ansible.builtin.set_fact:
     host_user: "{{ ansible_env['USER']}}"
   when: host_user is not defined
+
+- name: Debug Ansible Distribution
+  ansible.builtin.debug:
+    msg: "Detected OS: {{ ansible_distribution }}"

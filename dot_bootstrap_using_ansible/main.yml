@@ -1,3 +1,4 @@
+---
 - name: Machine setup
   hosts: localhost
   connection: local
@@ -30,3 +31,4 @@
       with_items: "{{ run_roles }}"
       tags:
         - always
+
