@@ -1,11 +1,12 @@
 # .github/workflows/ansible-ci.yml
 
-name: Ansible CI
+name: Ansible Test
 
 on:
   push:
     branches:
-      - main  # Adjust as needed
+      - main  
+jobs:
 
   test:
     name: Test Ansible Playbooks on Multiple OSes
