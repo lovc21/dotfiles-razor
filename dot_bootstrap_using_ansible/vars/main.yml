@@ -6,5 +6,6 @@ default_roles:
   - discord
   - firefox
   - flatpak
+  - code
   - terraform
 exclude_roles: []
