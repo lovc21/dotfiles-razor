@@ -3,3 +3,4 @@
   community.general.homebrew:
     name: terraform
     state: present
+  become: true

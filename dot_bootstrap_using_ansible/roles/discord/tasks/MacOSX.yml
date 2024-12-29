@@ -3,3 +3,4 @@
   community.general.homebrew_cask:
     name: discord
     state: present
+  become: true

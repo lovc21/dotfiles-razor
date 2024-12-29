@@ -3,3 +3,4 @@
   community.general.homebrew:
     name: gh
     state: present
+  become: true
