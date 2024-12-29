@@ -4,4 +4,4 @@
     name: awscli
     state: present
     update_homebrew: true
-  become: true
+  become: false

@@ -1,6 +1,6 @@
 ---
-- name: "Brave | MacOSX | Install brave"
+- name: "Chrome | MacOSX | Install brave"
   community.general.homebrew_cask:
     name: google-chrome
     state: present
-  become: true
+  become: false
