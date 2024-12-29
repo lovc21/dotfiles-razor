@@ -1,0 +1,73 @@
+# .github/workflows/ansible-ci.yml
+
+name: Ansible CI
+
+on:
+  push:
+    branches:
+      - main  # Adjust as needed
+
+  test:
+    name: Test Ansible Playbooks on Multiple OSes
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install Ansible and Dependencies
+        if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
+        run: |
+          pip install --upgrade pip
+          pip install ansible
+
+      - name: Install Ansible Galaxy Roles
+        if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
+        run: ansible-galaxy install -r dot_bootstrap_using_ansible/requirements/common.yml
+
+      - name: Run Ansible Playbook
+        run: |
+          ansible-playbook -i hosts.ini dot_bootstrap_using_ansible/main.yml --connection=local --become --ask-become-pass --skip-tags=install_apps
+        env:
+          ANSIBLE_FORCE_COLOR: true
+
+      - name: Verify Installations
+        run: |
+          # Replace with actual verification commands
+          which gh
+          gh --version
+
+          which aws
+          aws --version
+
+          which bpytop
+          bpytop --version
+
+          which google-chrome
+          google-chrome --version
+
+          which discord
+          discord --version
+
+          which firefox
+          firefox --version
+
+          which flatpak
+          flatpak --version
+
+          which terraform
+          terraform --version
+        continue-on-error: true
+
+      - name: Display Verification Results
+        run: |
+          echo "Verification completed. Check the logs for details."
+

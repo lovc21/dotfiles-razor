@@ -1,0 +1,19 @@
+---
+- name: Download Discord .deb package
+  ansible.builtin.get_url:
+    url: "https://discord.com/api/download?platform=linux&format=deb"
+    dest: "/tmp/discord.deb"
+    mode: '0644'
+
+- name: Install Discord using APT
+  ansible.builtin.apt:
+    deb: "/tmp/discord.deb"
+    state: present
+  become: true
+
+- name: Remove Discord .deb package after installation
+  ansible.builtin.file:
+    path: "/tmp/discord.deb"
+    state: absent
+  become: true
+

@@ -1,0 +1,44 @@
+
+---
+- name: "AWS | Ubuntu | Install dependencies for AWS CLI"
+  ansible.builtin.apt:
+    name:
+      - curl
+      - unzip
+    state: present
+    update_cache: yes
+  become: true
+
+- name: "AWS | Ubuntu | Download AWS CLI v2"
+  ansible.builtin.get_url:
+    url: "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
+    dest: "/tmp/awscliv2.zip"
+    mode: '0644'
+
+- name: "AWS | Ubuntu | Unzip AWS CLI v2"
+  ansible.builtin.unarchive:
+    src: "/tmp/awscliv2.zip"
+    dest: "/tmp/"
+
+- name: "AWS | Ubuntu | Install AWS CLI v2"
+  ansible.builtin.command:
+    cmd: "/tmp/aws/install"
+    creates: "/usr/local/bin/aws"
+  args:
+    chdir: "/tmp/aws"
+    removes: "/tmp/awscliv2.zip"
+- name: "AWS | Ubuntu | Clean up AWS CLI installation files"
+  ansible.builtin.file:
+    path: "/tmp/awscliv2.zip"
+    state: absent
+
+- name: "AWS | Ubuntu | Verify AWS CLI installation"
+  ansible.builtin.command:
+    cmd: "aws --version"
+  register: aws_version
+  changed_when: false
+
+- name: "AWS | Ubuntu | Display AWS CLI version"
+  ansible.builtin.debug:
+    msg: "AWS CLI version: {{ aws_version.stdout }}"
+

@@ -1,0 +1,25 @@
+
+- name: "BTOP | Fedora | Install btop"
+  ansible.builtin.dnf:
+    name: btop
+    state: present
+  become: true
+
+# - name: "BTOP | Fedora | Ensure btop directory structure exists"
+#   ansible.builtin.file:
+#     path: "{{ item }}"
+#     mode: "0755"
+#     state: directory
+#     owner: "{{ ansible_user }}"
+#     group: "{{ ansible_user }}"
+#   loop:
+#     - "{{ ansible_env.HOME }}/.config"
+#     - "{{ ansible_env.HOME }}/.config/btop"
+# 
+# - name: "BTOP | Fedora | Copy btop config"
+#   ansible.builtin.copy:
+#     src: btop.conf
+#     dest: "{{ ansible_env.HOME }}/.config/btop/btop.conf"
+#     mode: "0644"
+#     owner: "{{ ansible_user }}"
+#     group: "{{ ansible_user }}"

@@ -1,0 +1,13 @@
+---
+- name: "Flatpak | Install Flatpak on macOS"
+  community.general.homebrew:
+    name: flatpak
+    state: present
+  become: true
+
+- name: "Flatpak | Add Flathub Remote on macOS"
+  community.general.flatpak_remote:
+    name: "flathub"
+    flatpakrepo_url: "https://flathub.org/repo/flathub.flatpakrepo"
+    state: present
+  become: true

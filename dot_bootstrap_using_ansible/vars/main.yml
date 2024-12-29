@@ -1,3 +1,10 @@
 default_roles:
   - gh
+  - aws
+  - bpytop
+  - chrome
+  - discord
+  - firefox
+  - flatpak
+  - terraform
 exclude_roles: []
