@@ -1,0 +1,51 @@
+# Background Transparency
+background-opacity = 0.8
+
+# Themes for Light and Dark Modes
+theme = tokyonight
+
+# Font Settings
+font-family = "JetBrains Mono"
+font-size = 14
+font-family-bold = "JetBrains Mono Bold"
+font-family-italic = "JetBrains Mono Italic"
+font-family-bold-italic = "JetBrains Mono Bold Italic"
+
+# Shell Integration
+shell-integration = detect
+shell-integration-features = cursor, sudo, title
+
+# Cursor Settings
+cursor-style = bar
+cursor-color = ffffff
+cursor-opacity = 1
+
+# Clipboard Settings
+copy-on-select = true
+clipboard-read = allow
+clipboard-write = allow
+clipboard-trim-trailing-spaces = true
+
+# Window Padding and Decoration
+window-padding-x = 10,10
+window-padding-y = 10,10
+window-decoration = true
+
+# Selection Colors
+selection-background = ff79c6
+selection-foreground = 282c34
+
+# Scrollback and Performance
+scrollback-limit = 1000000
+window-vsync = true
+
+# Link Handling
+link-url = true
+
+# Enable Click-to-Move Cursor
+cursor-click-to-move = true
+
+# Enable Hide Mouse While Typing
+mouse-hide-while-typing = true
+
+

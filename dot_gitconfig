@@ -1,0 +1,15 @@
+[user]
+    name  = jakob
+    email = jakob.dekleva@gmail.com
+
+# If the repo is anywhere under ~/devrev/, include the WORK config
+[includeIf "gitdir:~/devrev/"]
+    path = ~/.gitconfig-work
+
+# If the repo is anywhere under ~/jakob/, include the PERSONAL config
+[includeIf "gitdir:~/jakob/"]
+    path = ~/.gitconfig-personal
+
+# If the repo is anywhere under ~/jakob-stuff/, include the PERSONAL config
+[includeIf "gitdir:~/jakob-stuff/"]
+    path = ~/.gitconfig-personal

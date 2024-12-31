@@ -4,8 +4,8 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-PLAYBOOK_PATH="${SCRIPT_DIR}/dot_bootstrap_using_ansible/setup.yml"
-INVENTORY_PATH="${SCRIPT_DIR}/hosts.ini"
+PLAYBOOK_PATH="/home/jakob/bootstrap/main.yml"
+INVENTORY_PATH="/home/jakob/bootstrap/hosts.ini"
 
 # print error messages in bash
 error_exit() {
@@ -99,4 +99,7 @@ main() {
   echo "Ansible setup complete."
 }
 
+cd $SCRIPT_DIR
+ls
+pwd
 main
