@@ -36,7 +36,7 @@ jobs:
 
       - name: Run Ansible Playbook
         run: |
-          ansible-playbook -i hosts.ini dot_bootstrap_using_ansible/main.yml --connection=local --become --skip-tags=install_apps
+          ansible-playbook -i hosts.ini dot_bootstrap/main.yml --connection=local --become --skip-tags=install_apps
         env:
           ANSIBLE_FORCE_COLOR: true
 

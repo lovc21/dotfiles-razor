@@ -1,34 +1,9 @@
 # My dotfiles (using Ansible and Chezmoi, maybe Nix Home Manager in the future)
 
-This directory contains the dotfiles for my system
+Here, you can find my entire configuration and setup. To get started, run this command in your terminal:
 
-# Requirements
-
-Ensure you have the following installed on your system
-
-## Git
-
+````
 ```
-sudo apt install git
-```
-
-## Stow
-
-```
-sudo apt install stow
-```
-
-# Installation
-
-First, check out the dotfiles repo in your $HOME directory using git
-
-```
-git clone git@github.com/dreamsofautonomy/dotfiles.git
-cd dotfiles
-```
-
-then use GNU stow to create symlinks
-
-```
-stow .
+export GITHUB_USERNAME=lovc21
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply $GITHUB_USERNAME
 ```
