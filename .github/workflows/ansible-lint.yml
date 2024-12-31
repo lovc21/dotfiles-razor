@@ -11,4 +11,4 @@ jobs:
       - name: Install Galaxy Modules
         run: ansible-galaxy install -r dot_bootstrap/requirements/common.yml
       - name: Linting with ansible-lint
-        run: ansible-lint dot_bootstrap_using_ansible/main.yml
+        run: ansible-lint dot_bootstrap/main.yml

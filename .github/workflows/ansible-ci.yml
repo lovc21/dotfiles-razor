@@ -32,7 +32,7 @@ jobs:
 
       - name: Install Ansible Galaxy Roles
         if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
-        run: ansible-galaxy install -r dot_bootstrap_using_ansible/requirements/common.yml
+        run: ansible-galaxy install -r dot_bootstrap/requirements/common.yml
 
       - name: Run Ansible Playbook
         run: |
