@@ -4,8 +4,8 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-PLAYBOOK_PATH="/home/jakob/bootstrap/main.yml"
-INVENTORY_PATH="/home/jakob/bootstrap/hosts.ini"
+PLAYBOOK_PATH="~/.bootstrap/main.yml"
+INVENTORY_PATH="~/.bootstrap/hosts.ini"
 
 # print error messages in bash
 error_exit() {
