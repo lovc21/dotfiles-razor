@@ -99,7 +99,4 @@ main() {
   echo "Ansible setup complete."
 }
 
-cd $SCRIPT_DIR
-ls
-pwd
 main
