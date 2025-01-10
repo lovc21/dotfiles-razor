@@ -1,0 +1,28 @@
+---
+- name: "Helm | Get OS Architecture"
+  ansible.builtin.set_fact:
+    os_arch: "{{ ansible_machine | replace('x86_64', 'amd64') | replace('aarch64', 'arm64') }}"
+
+- name: "Helm | Add Helm DNF repository"
+  ansible.builtin.dnf_repository:
+    name: "helm"
+    description: "Helm stable repository"
+    baseurl: "https://baltocdn.com/helm/stable/rpm"
+    gpgcheck: yes
+    repo_gpgcheck: yes
+    gpgkey: "https://baltocdn.com/helm/signing.asc"
+    enabled: yes
+  become: true
+
+- name: "Helm | Update DNF cache"
+  ansible.builtin.dnf:
+    update_cache: yes
+  become: true
+
+- name: "Helm | Install Helm"
+  ansible.builtin.dnf:
+    name: "helm"
+    state: present
+    update_cache: yes
+  become: true
+

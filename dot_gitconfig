@@ -13,3 +13,4 @@
 # If the repo is anywhere under ~/jakob-stuff/, include the PERSONAL config
 [includeIf "gitdir:~/jakob-stuff/"]
     path = ~/.gitconfig-personal
+

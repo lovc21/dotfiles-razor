@@ -1,0 +1,34 @@
+- name: K8s | Create keyring directory (if missing)
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: "0755"
+  become: true
+
+- name: K8s | Download Kubernetes GPG key
+  ansible.builtin.get_url:
+    url: "https://pkgs.k8s.io/core:/stable:/{{ k8s.repo.version }}/deb/Release.key"
+    dest: "/etc/apt/keyrings/kubernetes-apt-keyring.gpg"
+    mode: "0644"
+  become: true
+
+- name: K8s | Adding kubernetes apt repo
+  ansible.builtin.apt_repository:
+    repo: "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/{{ k8s.repo.version }}/deb/ /"
+    filename: pkgs.k8s.io_core_stable_deb
+    mode: "0644"
+  become: true
+
+- name: K8s | Update APT cache
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+  become: true
+
+- name: K8s | Install Kubernetes packages
+  ansible.builtin.apt:
+    name:
+      - kubectl
+    state: present
+  become: true
+

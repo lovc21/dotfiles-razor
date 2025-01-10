@@ -1,0 +1,31 @@
+---
+- name: "Chrome | Fedora | Ensure 'fedora-workstation-repositories' is installed"
+  ansible.builtin.dnf:
+    name: fedora-workstation-repositories
+    state: present
+  become: yes
+
+- name: "Chrome | Fedora | Enable Google Chrome repository"
+  ansible.builtin.shell:
+    cmd: "dnf config-manager --set-enabled google-chrome"
+  args:
+    warn: false
+  become: yes
+
+- name: "Chrome | Fedora | Install Google Chrome"
+  ansible.builtin.dnf:
+    name: google-chrome-stable
+    state: present
+    update_cache: yes
+  become: yes
+
+- name: "Chrome | Fedora | Verify Installation"
+  ansible.builtin.command:
+    cmd: "google-chrome --version"
+  register: chrome_version
+  changed_when: false
+  become: yes
+
+- name: "Chrome | Fedora | Display Chrome Version"
+  ansible.builtin.debug:
+    msg: "Google Chrome version installed: {{ chrome_version.stdout }}"

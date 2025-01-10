@@ -1,0 +1,31 @@
+---
+- name: "Neovim | Fedora | Dependencies"
+  ansible.builtin.dnf:
+    name:
+      - cmake
+      - curl
+      - pkgconfig
+      - libtool
+      - unzip
+      - ansible-lint
+      - ripgrep
+    state: present
+    update_cache: yes
+  become: true
+
+- name: "Neovim | Fedora | Enable Neovim-nightly COPR repository"
+  ansible.builtin.dnf_repository:
+    name: "neovim-nightly"
+    description: "Copr repo for Neovim nightly"
+    baseurl: "https://download.copr.fedorainfracloud.org/results/dperson/neovim-nightly/fedora-\$releasever-\$basearch/"
+    gpgcheck: no
+    enabled: yes
+  become: true
+
+- name: "Neovim | Fedora | Install Neovim (nightly/unstable)"
+  ansible.builtin.dnf:
+    name: neovim
+    state: present
+    update_cache: yes
+  become: true
+

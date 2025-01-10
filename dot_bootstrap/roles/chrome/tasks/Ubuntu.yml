@@ -1,0 +1,23 @@
+- name: "Download Google Chrome .deb"
+  ansible.builtin.get_url:
+    url: "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
+    dest: "/tmp/google-chrome-stable_current_amd64.deb"
+    mode: "0644"
+  become: yes
+
+- name: "Install Google Chrome .deb"
+  ansible.builtin.apt:
+    deb: "/tmp/google-chrome-stable_current_amd64.deb"
+    state: present
+  become: yes
+
+- name: "Verify Google Chrome"
+  ansible.builtin.command:
+    cmd: "google-chrome --version"
+  register: chrome_version
+  changed_when: false
+
+- name: "Display Chrome Version"
+  ansible.builtin.debug:
+    msg: "Google Chrome version: {{ chrome_version.stdout }}"
+

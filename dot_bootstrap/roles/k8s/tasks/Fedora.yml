@@ -1,0 +1,21 @@
+---
+- name: "K8s | Adding Kubernetes DNF repository"
+  ansible.builtin.dnf_repository:
+    name: "kubernetes"
+    description: "Kubernetes stable repo"
+    baseurl: "https://pkgs.k8s.io/core:/stable:/{{ k8s.repo.version }}/rpm/"
+    gpgkey: "https://pkgs.k8s.io/core:/stable:/{{ k8s.repo.version }}/rpm/Release.key"
+    repo_gpgcheck: yes
+    gpgcheck: yes
+    enabled: yes
+  become: true
+
+- name: "K8s | Installing Kubernetes packages on Fedora"
+  ansible.builtin.dnf:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  loop:
+    - kubectl
+  become: true
+

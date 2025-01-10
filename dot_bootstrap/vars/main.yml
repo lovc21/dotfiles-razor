@@ -8,4 +8,52 @@ default_roles:
   - flatpak
   - code
   - terraform
+  - fzf
+  - git
+  - go
+  - helm
+  - k8s
+  - lazygit
+  - lazydocker
+  - neofetch
+  - neovim
+  - npm
+  - obsidian
+  - zig
+  - zoxide
+  - just
+  - jq
+  - yq
+  - htop
+  - vim
+  - zsh
+  - tmux
+  - make
+  - wl-clipboard
+  - docker
+  - Jetbrains
+  - node-typescript
+  - nodejs
+  - obs-studio
+  - pipx
+  - shellcheck
+  - tree
+  - unzip
+  - wget
+  - virt-manager
+  - yamllint
+  - yubikey-manager
+  - yubioath-desktop
+  - dive
+  - slack
+  - spotify
+  - sublime-text
+  - wallpaper
+  - system-settings
 exclude_roles: []
+
+
+k8s:
+  repo:
+    version: "v1.32"
+

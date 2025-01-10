@@ -1,0 +1,31 @@
+---
+- name: "VS Code | Ubuntu | Add Microsoft GPG key"
+  ansible.builtin.apt_key:
+    url: https://packages.microsoft.com/keys/microsoft.asc
+    state: present
+  become: yes
+
+- name: "VS Code | Ubuntu | Add Visual Studio Code repository"
+  ansible.builtin.apt_repository:
+    repo: "deb [arch=amd64] https://packages.microsoft.com/repos/code stable main"
+    state: present
+    filename: vscode
+  become: yes
+
+- name: "VS Code | Ubuntu | Install VS Code"
+  ansible.builtin.apt:
+    name: code
+    state: present
+    update_cache: yes
+  become: yes
+
+- name: "VS Code | Ubuntu | Verify Installation"
+  ansible.builtin.command:
+    cmd: "code --version"
+  register: vscode_version
+  changed_when: false
+
+- name: "VS Code | Ubuntu | Display VS Code Version"
+  ansible.builtin.debug:
+    msg: "VS Code version installed: {{ vscode_version.stdout }}"
+

@@ -1,0 +1,10 @@
+---
+- name: "Git | MacOSX | Install git"
+  community.general.homebrew:
+    name: git
+    state: present
+
+- name: "Git | MacOSX | Install git-delta"
+  community.general.homebrew:
+    name: git-delta
+    state: present
