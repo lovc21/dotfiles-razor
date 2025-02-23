@@ -24,6 +24,7 @@
     cmd: "code --version"
   register: vscode_version
   changed_when: false
+  become: false
 
 - name: "VS Code | Ubuntu | Display VS Code Version"
   ansible.builtin.debug:
