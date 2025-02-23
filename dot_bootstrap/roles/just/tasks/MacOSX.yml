@@ -1,2 +1,6 @@
 ---
-# Ansible tasks for just on MacOSX
+- name: "Just | Install Just"
+  community.general.homebrew:
+    name: just
+    state: present
+    update_homebrew: true

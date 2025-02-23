@@ -1,2 +1,6 @@
 ---
-# Ansible tasks for neofetch on MacOSX
+- name: "Neofetch | MacOSX | Install  neofetch"
+  community.general.homebrew:
+    name: neofetch
+    state: present
+  become: true

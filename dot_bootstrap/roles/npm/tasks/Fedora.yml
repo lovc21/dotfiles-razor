@@ -1,2 +1,93 @@
 ---
 # Ansible tasks for npm on Fedora
+---
+- name: Install Latest NodeJS LTS on Fedora
+  hosts: fedora
+  become: true
+  vars:
+    # Temporary working directory for NodeJS download and extraction.
+    nodejs_temp_dir: "/tmp/nodejs_install"
+  tasks:
+    - name: "NPM | Get latest STABLE NodeJS version"
+      ansible.builtin.shell: >
+        curl -sL https://nodejs.org/dist/index.json |
+        jq -r '.[] | select(.lts) | .version' | head -n 1
+      register: nodejs_latest_version
+      changed_when: false
+
+    - name: "NPM | Check if NodeJS is installed"
+      ansible.builtin.command: node --version
+      register: nodejs_installed
+      failed_when: false
+      changed_when: false
+
+    - name: "NPM | Show Installed NodeJS version"
+      ansible.builtin.debug:
+        msg: "Installed NodeJS version: {{ nodejs_installed.stdout | default('not installed') }}"
+
+    - name: "NPM | Show Latest Online NodeJS version"
+      ansible.builtin.debug:
+        msg: "Online NodeJS LTS version: {{ nodejs_latest_version.stdout }}"
+
+    - name: "NPM | Set fact: NodeJS update needed"
+      ansible.builtin.set_fact:
+        nodejs_install_needed: true
+      when: nodejs_installed.stdout != nodejs_latest_version.stdout
+
+    - name: "NPM | Install/Update NodeJS on Fedora"
+      when:
+        - nodejs_install_needed | default(false)
+      block:
+        - name: "NPM | Determine system architecture"
+          ansible.builtin.set_fact:
+            nodejs_arch: "{{ ansible_machine | replace('x86_64', 'x64') | replace('aarch64', 'arm64') }}"
+
+        - name: "NPM | Construct NodeJS package name"
+          ansible.builtin.set_fact:
+            # Using "linux" in the package name since NodeJS tarballs are published as 'node-vX.Y.Z-linux-x64.tar.xz'
+            nodejs_package_name: "node-{{ nodejs_latest_version.stdout }}-linux-{{ nodejs_arch }}"
+
+        - name: "NPM | Create temporary directory for NodeJS"
+          ansible.builtin.file:
+            path: "{{ nodejs_temp_dir }}"
+            state: directory
+            mode: "0755"
+
+        - name: "NPM | Download NodeJS tarball"
+          ansible.builtin.get_url:
+            url: "https://nodejs.org/dist/{{ nodejs_latest_version.stdout }}/{{ nodejs_package_name }}.tar.xz"
+            dest: "{{ nodejs_temp_dir }}/{{ nodejs_package_name }}.tar.xz"
+            mode: "0644"
+
+        - name: "NPM | Extract NodeJS tarball"
+          ansible.builtin.unarchive:
+            src: "{{ nodejs_temp_dir }}/{{ nodejs_package_name }}.tar.xz"
+            dest: "{{ nodejs_temp_dir }}/{{ nodejs_package_name }}"
+            remote_src: yes
+            extra_opts: "--strip-components=1"
+
+        - name: "NPM | Copy NodeJS binaries to /usr/local/bin"
+          ansible.builtin.copy:
+            src: "{{ nodejs_temp_dir }}/{{ nodejs_package_name }}/bin/"
+            dest: "/usr/local/bin/"
+            remote_src: yes
+            mode: "0755"
+
+        - name: "NPM | Ensure NodeJS global modules directory exists"
+          ansible.builtin.file:
+            path: "/usr/local/lib/node_modules"
+            state: directory
+            mode: "0755"
+
+        - name: "NPM | Copy NodeJS modules to /usr/local/lib/node_modules"
+          ansible.builtin.copy:
+            src: "{{ nodejs_temp_dir }}/{{ nodejs_package_name }}/lib/node_modules/"
+            dest: "/usr/local/lib/node_modules/"
+            remote_src: yes
+            mode: "0755"
+
+        - name: "NPM | Clean up temporary NodeJS files"
+          ansible.builtin.file:
+            path: "{{ nodejs_temp_dir }}"
+            state: absent
+

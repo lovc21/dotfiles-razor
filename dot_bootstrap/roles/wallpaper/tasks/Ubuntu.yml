@@ -1,2 +1,15 @@
 ---
-# Ansible tasks for wallpaper on Ubuntu
+- name: "Wallpaper | Ensure the wallpaper image exists"
+  ansible.builtin.stat:
+    path: "{{ wallpaper_path }}"
+  register: wallpaper
+  become: true
+
+- name: "Wallpaper | Set the GNOME wallpaper"
+  ansible.builtin.command: >
+    gsettings set org.gnome.desktop.background picture-uri "file://{{ wallpaper_path }}"
+  args:
+    executable: /bin/bash
+  become: true
+  when: wallpaper.stat.exists
+

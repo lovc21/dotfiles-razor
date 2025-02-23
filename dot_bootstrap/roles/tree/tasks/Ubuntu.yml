@@ -1,2 +1,11 @@
 ---
-# Ansible tasks for tree on Ubuntu
+- name: "tree | Update APT cache"
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+  become: true
+- name: "tree | Install tree"
+  ansible.builtin.apt:
+    name: tree
+    state: present
+  become: true

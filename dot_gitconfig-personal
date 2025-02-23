@@ -1,6 +1,9 @@
 [user]
 	email = jakob.dekleva@gmail.com
 	name = Jakob
+  signingkey=6A923C3A292DD9B6
+[commit]
+    gpgsign = true
 [credential]
 	helper = store
 [url "git@github.com:"]

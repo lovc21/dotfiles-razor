@@ -1,2 +1,13 @@
 ---
-# Ansible tasks for jq on Ubuntu
+
+- name: "jq | Update APT cache"
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+  become: true
+- name: "jq | Install jq"
+  ansible.builtin.apt:
+    name: jq
+    state: present
+  become: true
+

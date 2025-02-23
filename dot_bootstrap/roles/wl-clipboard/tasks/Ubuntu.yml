@@ -1,2 +1,12 @@
 ---
-# Ansible tasks for wl-clipboard on Ubuntu
+- name: "wl-clipboard | Update APT cache"
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+  become: true
+
+- name: "wl-clipboard | Install wl-clipboard"
+  ansible.builtin.apt:
+    name: wl-clipboard
+    state: present
+  become: true

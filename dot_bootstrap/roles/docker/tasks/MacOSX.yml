@@ -1,2 +1,5 @@
 ---
-# Ansible tasks for docker on MacOSX
+- name: "Docker | MacOSX | Install Docker"
+  community.general.homebrew:
+    name: docker
+    state: present

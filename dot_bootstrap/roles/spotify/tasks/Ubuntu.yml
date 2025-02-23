@@ -1,2 +1,27 @@
----
-# Ansible tasks for spotify on Ubuntu
+
+- name: "Spotify | Add Spotify GPG key"
+  ansible.builtin.shell:
+    cmd: >
+      curl -sS https://download.spotify.com/debian/pubkey_C85668DF69375001.gpg |
+      gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
+    executable: /bin/bash
+  become: true
+ 
+- name: "Spotify | Add Spotify repository"
+  ansible.builtin.shell:
+    cmd: "echo 'deb http://repository.spotify.com stable non-free' | tee /etc/apt/sources.list.d/spotify.list"
+  become: true
+  args:
+    executable: /bin/bash
+
+- name: "Spotify | Update APT cache"
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+  become: true
+
+- name: "Spotify | Install Spotify client"
+  ansible.builtin.apt:
+    name: spotify-client
+    state: present
+  become: true

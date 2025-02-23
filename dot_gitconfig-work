@@ -1,6 +1,9 @@
 [user]
 	email = i-jakob.dekleva@devrev.ai
 	name = Jakob
+  signingkey = F50401E4A39F0BF5
+[commit]
+    gpgsign = true
 [credential]
 	helper = store
 [url "git@github.com:"]

@@ -1,2 +1,20 @@
 ---
-# Ansible tasks for dive on Ubuntu
+- name: "dive | Download dive deb package"
+  ansible.builtin.get_url:
+    url: "https://github.com/wagoodman/dive/releases/download/v0.10.0/dive_0.10.0_linux_amd64.deb"
+    dest: "/tmp/dive.deb"
+    mode: "0644"
+  become: true
+
+- name: "dive | Install dive package"
+  ansible.builtin.apt:
+    deb: "/tmp/dive.deb"
+    state: present
+  become: true
+
+- name: "dive | Remove dive deb package file"
+  ansible.builtin.file:
+    path: "/tmp/dive.deb"
+    state: absent
+  become: true
+

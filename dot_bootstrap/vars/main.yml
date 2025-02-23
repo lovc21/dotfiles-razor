@@ -25,16 +25,13 @@ default_roles:
   - jq
   - yq
   - htop
-  - vim
   - zsh
   - tmux
   - make
   - wl-clipboard
   - docker
   - Jetbrains
-  - node-typescript
   - nodejs
-  - obs-studio
   - pipx
   - shellcheck
   - tree
@@ -45,12 +42,12 @@ default_roles:
   - yubikey-manager
   - yubioath-desktop
   - dive
-  - slack
   - spotify
   - sublime-text
   - wallpaper
-  - system-settings
 exclude_roles: []
+
+wallpaper_path: "{{ role_path }}/b-098.jpg"
 
 
 k8s:

@@ -4,8 +4,8 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-PLAYBOOK_PATH="~/.bootstrap/main.yml"
-INVENTORY_PATH="~/.bootstrap/hosts.ini"
+PLAYBOOK_PATH="$HOME/.bootstrap/main.yml"
+INVENTORY_PATH="$HOME/.bootstrap/hosts.ini"
 
 # print error messages in bash
 error_exit() {
@@ -87,7 +87,7 @@ run_playbook() {
     error_exit "Ansible inventory file not found at ${INVENTORY_PATH}."
   fi
 
-  ansible-playbook -i "${INVENTORY_PATH}" "${PLAYBOOK_PATH}" nsible-playbook -i || error_exit "Ansible playbook execution failed."
+  ansible-playbook -i "${INVENTORY_PATH}" "${PLAYBOOK_PATH}" ansible-playbook -i || error_exit "Ansible playbook execution failed."
 
   echo "Ansible playbook executed successfully."
 }

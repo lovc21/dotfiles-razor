@@ -1,2 +1,19 @@
 ---
-# Ansible tasks for zsh on Ubuntu
+- name: "Zsh | Update APT cache"
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+  become: true
+
+- name: "Zsh | Install zsh"
+  ansible.builtin.apt:
+    name: zsh
+    state: present
+  become: true
+
+#- name: "Zsh | Set zsh as default shell for current user"
+#  ansible.builtin.user:
+#    name: "{{ ansible_env.USER }}"
+#    shell: /usr/bin/zsh
+#  become: true
+

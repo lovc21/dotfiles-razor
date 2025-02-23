@@ -1,2 +1,12 @@
 ---
-# Ansible tasks for yq on Ubuntu
+- name: "yq | Update APT cache"
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+  become: true
+
+- name: "yq | Install yq"
+  ansible.builtin.apt:
+    name: yq
+    state: present
+  become: true
