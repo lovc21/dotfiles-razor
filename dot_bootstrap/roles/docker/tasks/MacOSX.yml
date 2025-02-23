@@ -3,3 +3,4 @@
   community.general.homebrew:
     name: docker
     state: present
+  become: false
