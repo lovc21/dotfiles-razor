@@ -42,7 +42,6 @@ jobs:
 
       - name: Verify Installations
         run: |
-          # Replace with actual verification commands
           which gh
           gh --version
 
