@@ -2,10 +2,20 @@
 
 set -e
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if [ -f "$HOME/.bootstrap/main.yml" ]; then
+  PLAYBOOK_PATH="$HOME/.bootstrap/main.yml"
+else
+  PLAYBOOK_PATH=$(find "$HOME/.bootstrap" -maxdepth 1 -type f -name "*.yml" | head -n 1)
+fi
 
-PLAYBOOK_PATH="$HOME/.bootstrap/main.yml"
-INVENTORY_PATH="$HOME/.bootstrap/hosts.ini"
+if [ -f "$HOME/.bootstrap/hosts.ini" ]; then
+  INVENTORY_PATH="$HOME/.bootstrap/hosts.ini"
+else
+  INVENTORY_PATH=$(find "$HOME/.bootstrap" -maxdepth 1 -type f -name "*.ini" | head -n 1)
+fi
+
+echo "Using playbook: ${PLAYBOOK_PATH}"
+echo "Using inventory: ${INVENTORY_PATH}"
 
 # print error messages in bash
 error_exit() {
@@ -79,6 +89,7 @@ install_ansible() {
 }
 run_playbook() {
 
+  echo $PLAYBOOK_PATH
   if [ ! -f "${PLAYBOOK_PATH}" ]; then
     error_exit "Ansible playbook not found at ${PLAYBOOK_PATH}."
   fi
@@ -86,8 +97,6 @@ run_playbook() {
   if [ ! -f "${INVENTORY_PATH}" ]; then
     error_exit "Ansible inventory file not found at ${INVENTORY_PATH}."
   fi
-
-  echo "Ansible playbook executed successfully."
 
   ansible-playbook -i "${INVENTORY_PATH}" "${PLAYBOOK_PATH}" ansible-playbook || error_exit "Ansible playbook execution failed."
 
