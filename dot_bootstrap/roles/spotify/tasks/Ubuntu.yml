@@ -9,7 +9,7 @@
  
 - name: "Spotify | Add Spotify repository"
   ansible.builtin.shell:
-    cmd: "echo 'deb http://repository.spotify.com stable non-free' | tee /etc/apt/sources.list.d/spotify.list"
+    cmd: "echo 'deb https://repository.spotify.com stable non-free' | tee /etc/apt/sources.list.d/spotify.list"
   become: true
   args:
     executable: /bin/bash
