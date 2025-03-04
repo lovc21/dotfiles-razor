@@ -98,7 +98,7 @@ run_playbook() {
     error_exit "Ansible inventory file not found at ${INVENTORY_PATH}."
   fi
 
-  ansible-playbook -i "${INVENTORY_PATH}" "${PLAYBOOK_PATH}" ansible-playbook || error_exit "Ansible playbook execution failed."
+  ansible-playbook -i "${INVENTORY_PATH}" "${PLAYBOOK_PATH}" --ask-become-pass || error_exit "Ansible playbook execution failed."
 
   echo "Ansible playbook executed successfully."
 }
