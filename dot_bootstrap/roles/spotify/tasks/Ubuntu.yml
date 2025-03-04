@@ -1,4 +1,3 @@
-
 - name: "Spotify | Add Spotify GPG key"
   ansible.builtin.shell:
     cmd: >
@@ -6,7 +5,7 @@
       gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
     executable: /bin/bash
   become: true
- 
+
 - name: "Spotify | Add Spotify repository"
   ansible.builtin.shell:
     cmd: "echo 'deb https://repository.spotify.com stable non-free' | tee /etc/apt/sources.list.d/spotify.list"
