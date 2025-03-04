@@ -1,4 +1,4 @@
-[/]
+[org/gnome/terminal/legacy/profiles:/]
 default='1a8a8193-18ba-43b3-bf43-eb2ca1cb0de7'
 list=['b1dcc9dd-5262-4d8d-a863-c897e6d979b9', '1a8a8193-18ba-43b3-bf43-eb2ca1cb0de7']
 
