@@ -1,6 +1,12 @@
-# My dotfiles (using Ansible and Chezmoi, maybe Nix Home Manager in the future)
+# Dotfiles and programs I use on my PC
 
-Here, you can find my entire configuration and setup. To get started, run this command in your terminal:
+Here, you can find my entire configuration and setup.
+
+## Goal
+
+The goal with my dotfiles is to just run one command and have a new system up and running with no manual setup.
+
+## Run this command to bootstrap your setup
 
 ### Ubuntu
 

@@ -4,3 +4,5 @@
     name: just
     state: present
     update_homebrew: true
+  become: false
+  become_user: "{{ ansible_user_id }}"

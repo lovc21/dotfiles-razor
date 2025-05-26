@@ -3,4 +3,4 @@
   community.general.homebrew:
     name: neofetch
     state: present
-  become: true
+  become: false
