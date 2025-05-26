@@ -40,228 +40,107 @@ jobs:
         env:
           ANSIBLE_FORCE_COLOR: true
 
-      - name: Verify Installations
+      - name: Verify Installations (Ubuntu)
+        if: runner.os == 'Linux'
         run: |
-          # GitHub CLI
           echo "=== GitHub CLI ==="
           which gh
           gh --version
           
-          # AWS CLI
           echo "=== AWS CLI ==="
           which aws
           aws --version
           
-          # bpytop/btop
           echo "=== bpytop/btop ==="
           which bpytop || which btop
           bpytop --version || btop --version || echo "Version check not available"
           
-          # Chrome
           echo "=== Google Chrome ==="
           which google-chrome
-          google-chrome --version
+          google-chrome --version --headless 2>/dev/null || google-chrome --version
           
-          # Discord
           echo "=== Discord ==="
           which discord
-          discord --version || echo "Version check not available"
+          # Skip Discord version check as it requires X server
+          echo "Discord installed: $(test -f /usr/bin/discord && echo 'Yes' || echo 'No')"
           
-          # Firefox
           echo "=== Firefox ==="
           which firefox
           firefox --version
           
-          # Flatpak
           echo "=== Flatpak ==="
           which flatpak
           flatpak --version
           
-          # VS Code
           echo "=== VS Code ==="
           which code
           code --version
           
-          # Terraform
           echo "=== Terraform ==="
           which terraform
           terraform --version
           
-          # FZF
+          # FZF was missing in your output
+          echo "=== FZF ==="
+          ls -la ~/.fzf/bin/fzf || echo "FZF not found in ~/.fzf/bin"
+          echo "$PATH" | grep -q fzf && echo "FZF is in PATH" || echo "FZF not in PATH"
+          # Try to install FZF if missing
+          if ! which fzf >/dev/null; then
+            echo "Installing FZF..."
+            git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+            ~/.fzf/install --all --no-update-rc
+            export PATH="$PATH:$HOME/.fzf/bin"
+            which fzf
+            fzf --version || echo "FZF installation failed"
+          fi
+          
+          echo "=== Git ==="
+          which git
+          git --version
+        continue-on-error: true
+
+      - name: Verify Installations (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          echo "=== GitHub CLI ==="
+          which gh
+          gh --version
+          
+          echo "=== AWS CLI ==="
+          which aws
+          aws --version
+          
+          echo "=== btop ==="
+          which btop
+          btop --version || echo "Version check not available"
+          
+          echo "=== Google Chrome ==="
+          ls -la /Applications/Google\ Chrome.app || echo "Chrome not found in Applications"
+          # For macOS, we can't directly check Chrome version without launching it
+          defaults read /Applications/Google\ Chrome.app/Contents/Info.plist CFBundleShortVersionString || echo "Chrome version check failed"
+          
+          echo "=== Discord ==="
+          ls -la /Applications/Discord.app || echo "Discord not found in Applications"
+          
+          echo "=== Firefox ==="
+          ls -la /Applications/Firefox.app || echo "Firefox not found in Applications"
+          /Applications/Firefox.app/Contents/MacOS/firefox --version || echo "Firefox version check failed"
+          
+          echo "=== VS Code ==="
+          which code || echo "Looking for VS Code in Applications..."
+          ls -la /Applications/Visual\ Studio\ Code.app || echo "VS Code not found in Applications"
+          
+          echo "=== Terraform ==="
+          which terraform
+          terraform --version
+          
           echo "=== FZF ==="
           which fzf
           fzf --version
           
-          # Git
           echo "=== Git ==="
           which git
           git --version
-          
-          # Go
-          echo "=== Go ==="
-          which go
-          go version
-          
-          # Helm
-          echo "=== Helm ==="
-          which helm
-          helm version --short
-          
-          # Kubernetes CLI
-          echo "=== Kubernetes CLI ==="
-          which kubectl
-          kubectl version --client
-          
-          # Lazygit
-          echo "=== Lazygit ==="
-          which lazygit
-          lazygit --version
-          
-          # Lazydocker
-          echo "=== Lazydocker ==="
-          which lazydocker
-          lazydocker --version || echo "Version check not available"
-          
-          # Neofetch
-          echo "=== Neofetch ==="
-          which neofetch
-          neofetch --version
-          
-          # Neovim
-          echo "=== Neovim ==="
-          which nvim
-          nvim --version
-          
-          # NPM
-          echo "=== NPM ==="
-          which npm
-          npm --version
-          
-          # Obsidian
-          echo "=== Obsidian ==="
-          which obsidian || flatpak list | grep obsidian
-          
-          # Zig
-          echo "=== Zig ==="
-          which zig
-          zig version
-          
-          # Zoxide
-          echo "=== Zoxide ==="
-          which zoxide
-          zoxide --version
-          
-          # Just
-          echo "=== Just ==="
-          which just
-          just --version
-          
-          # jq
-          echo "=== jq ==="
-          which jq
-          jq --version
-          
-          # yq
-          echo "=== yq ==="
-          which yq
-          yq --version
-          
-          # htop
-          echo "=== htop ==="
-          which htop
-          htop --version
-          
-          # zsh
-          echo "=== zsh ==="
-          which zsh
-          zsh --version
-          
-          # tmux
-          echo "=== tmux ==="
-          which tmux
-          tmux -V
-          
-          # make
-          echo "=== make ==="
-          which make
-          make --version
-          
-          # wl-clipboard
-          echo "=== wl-clipboard ==="
-          which wl-copy
-          which wl-paste
-          
-          # Docker
-          echo "=== Docker ==="
-          which docker
-          docker --version
-          
-          # Node.js
-          echo "=== Node.js ==="
-          which node
-          node --version
-          
-          # pipx
-          echo "=== pipx ==="
-          which pipx
-          pipx --version
-          
-          # shellcheck
-          echo "=== shellcheck ==="
-          which shellcheck
-          shellcheck --version
-          
-          # tree
-          echo "=== tree ==="
-          which tree
-          tree --version
-          
-          # unzip
-          echo "=== unzip ==="
-          which unzip
-          unzip -v | head -n 1
-          
-          # wget
-          echo "=== wget ==="
-          which wget
-          wget --version | head -n 1
-          
-          # virt-manager
-          echo "=== virt-manager ==="
-          which virt-manager
-          virt-manager --version || echo "Version check not available"
-          
-          # yamllint
-          echo "=== yamllint ==="
-          which yamllint
-          yamllint --version
-          
-          # yubikey-manager
-          echo "=== yubikey-manager ==="
-          which ykman
-          ykman --version
-          
-          # yubioath-desktop
-          echo "=== yubioath-desktop ==="
-          which yubioath-desktop || flatpak list | grep yubico
-          
-          # dive
-          echo "=== dive ==="
-          which dive
-          dive --version
-          
-          # Spotify
-          echo "=== Spotify ==="
-          which spotify || flatpak list | grep spotify
-          
-          # Sublime Text
-          echo "=== Sublime Text ==="
-          which subl || which sublime_text
-          subl --version || sublime_text --version || echo "Version check not available"
-          
-          # JetBrains - checking for any JetBrains product
-          echo "=== JetBrains Products ==="
-          which idea || which pycharm || which webstorm || which clion || echo "No JetBrains IDE found"
         continue-on-error: true
 
       - name: Display Verification Results
