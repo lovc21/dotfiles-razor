@@ -1,2 +1,12 @@
 ---
-# Ansible tasks for pipx on Fedora
+- name: "pipx | Fedora | Install Python pip"
+  ansible.builtin.dnf:
+    name: python3-pip
+    state: present
+  become: true
+
+- name: "pipx | Fedora | Install pipx"
+  ansible.builtin.dnf:
+    name: pipx
+    state: present
+  become: true

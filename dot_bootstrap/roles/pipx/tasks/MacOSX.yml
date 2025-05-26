@@ -1,12 +1,6 @@
 ---
-- name: "pipx | Update APT cache"
-  ansible.builtin.apt:
-    update_cache: true
-    cache_valid_time: 3600
-  become: true
-- name: "pipx | Install pipx"
-  ansible.builtin.apt:
+- name: "pipx | macOS | Install pipx via Homebrew"
+  community.general.homebrew:
     name: pipx
     state: present
-  become: true
-
+  become: false

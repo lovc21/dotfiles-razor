@@ -1,1 +1,7 @@
 ---
+- name: "just | Install on Debian and Ubuntu derivatives"
+  ansible.builtin.apt:
+    name: just
+    state: present
+    update_cache: yes
+  become: true

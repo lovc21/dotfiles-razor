@@ -1,2 +1,7 @@
 ---
-# Ansible tasks for htop on Fedora
+- name: "htop | Install on Fedora"
+  ansible.builtin.dnf:
+    name: htop
+    state: present
+  become: true
+  when: ansible_distribution == 'Fedora'

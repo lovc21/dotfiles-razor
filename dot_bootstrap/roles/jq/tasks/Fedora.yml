@@ -1,2 +1,6 @@
 ---
-# Ansible tasks for jq on Fedora
+- name: "jq | Install on Fedora"
+  ansible.builtin.dnf:
+    name: jq
+    state: present
+  become: true

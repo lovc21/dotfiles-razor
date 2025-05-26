@@ -1,2 +1,6 @@
 ---
-# Ansible tasks for make on Fedora
+- name: "make | Install on Fedora/RHEL"
+  ansible.builtin.dnf:
+    name: make
+    state: present
+  become: true

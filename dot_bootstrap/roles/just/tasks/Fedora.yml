@@ -1,2 +1,6 @@
 ---
-# Ansible tasks for just on Fedora
+- name: "just | Install on Fedora"
+  ansible.builtin.dnf:
+    name: just
+    state: present
+  become: true

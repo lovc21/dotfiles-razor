@@ -1,1 +1,7 @@
-
+---
+- name: "Dive | MacOSX | Install dive"
+  community.general.homebrew:
+    name: dive
+    state: present
+  become: false
+  become_user: "{{ ansible_user_id }}"

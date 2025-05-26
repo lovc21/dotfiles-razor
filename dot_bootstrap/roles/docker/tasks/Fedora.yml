@@ -1,2 +1,54 @@
 ---
-# Ansible tasks for docker on Fedora
+# These steps are based on the official Docker documentation: https://docs.docker.com/engine/install/fedora/
+- name: "Docker | Install required packages"
+  ansible.builtin.dnf:
+    name:
+      - dnf-plugins-core
+      - device-mapper-persistent-data
+      - lvm2
+    state: present
+  become: true
+
+- name: "Docker | Add Docker repository"
+  ansible.builtin.command:
+    cmd: dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+  become: true
+  register: add_repo_result
+  changed_when: add_repo_result.rc == 0
+
+- name: "Docker | Install Docker Engine"
+  ansible.builtin.dnf:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+    state: present
+  become: true
+
+- name: "Docker | Create docker group"
+  ansible.builtin.group:
+    name: docker
+    state: present
+  become: true
+
+- name: "Docker | Add user to docker group"
+  ansible.builtin.user:
+    name: "{{ ansible_user_id }}"
+    groups: docker
+    append: true
+  become: true
+
+- name: "Docker | Enable service"
+  ansible.builtin.systemd:
+    enabled: true
+    name: docker
+    state: started
+  become: true
+  when: not (ansible_host_environment_is_wsl | default(false))
+
+- name: "Docker | Check if relogin is needed for docker group"
+  ansible.builtin.debug:
+    msg: "You may need to log out and log back in for docker group membership to take effect"
+

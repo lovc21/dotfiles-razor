@@ -1,2 +1,7 @@
 ---
-# Ansible tasks for htop on MacOSX
+- name: "htop | Install on macOS"
+  community.general.homebrew:
+    name: htop
+    state: present
+  become: false
+  when: ansible_distribution == 'MacOSX'

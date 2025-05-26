@@ -1,2 +1,11 @@
 ---
-# Ansible tasks for pipx on Ubuntu
+- name: "pipx | Update APT cache"
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+  become: true
+- name: "pipx | Install pipx"
+  ansible.builtin.apt:
+    name: pipx
+    state: present
+  become: true

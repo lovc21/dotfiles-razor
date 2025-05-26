@@ -1,1 +1,6 @@
-
+---
+- name: "jq | Install on macOS"
+  community.general.homebrew:
+    name: jq
+    state: present
+  become: false

@@ -1,2 +1,32 @@
 ---
-# Ansible tasks for dive on Fedora
+- name: "dive | Get latest dive version"
+  ansible.builtin.uri:
+    url: "https://api.github.com/repos/wagoodman/dive/releases/latest"
+    return_content: yes
+  register: dive_release
+  become: false 
+
+- name: "dive | Set dive version"
+  ansible.builtin.set_fact:
+    dive_version: "{{ dive_release.json.tag_name | regex_replace('^v', '') }}"
+  become: false
+
+- name: "dive | Download dive rpm package"
+  ansible.builtin.get_url:
+    url: "https://github.com/wagoodman/dive/releases/download/v{{ dive_version }}/dive_{{ dive_version }}_linux_amd64.rpm"
+    dest: "/tmp/dive_{{ dive_version }}_linux_amd64.rpm"
+    mode: "0644"
+  become: true
+
+- name: "dive | Install dive package"
+  ansible.builtin.dnf:  
+    name: "/tmp/dive_{{ dive_version }}_linux_amd64.rpm"
+    state: present
+    disable_gpg_check: yes
+  become: true
+
+- name: "dive | Remove dive rpm package file"
+  ansible.builtin.file:
+    path: "/tmp/dive_{{ dive_version }}_linux_amd64.rpm"
+    state: absent
+  become: true

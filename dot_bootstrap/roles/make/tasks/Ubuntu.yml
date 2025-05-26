@@ -1,2 +1,13 @@
 ---
-# Ansible tasks for make on Ubuntu
+- name: "make | Install on Debian/Ubuntu"
+  ansible.builtin.apt:
+    name: make
+    state: present
+    update_cache: yes
+  become: true
+
+- name: "make | Install build-essential (includes make) on Debian/Ubuntu"
+  ansible.builtin.apt:
+    name: build-essential
+    state: present
+  become: true
