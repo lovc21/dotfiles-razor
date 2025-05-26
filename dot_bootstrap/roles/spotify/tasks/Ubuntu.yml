@@ -1,20 +1,34 @@
-- name: "Spotify | Add Spotify GPG key"
-  ansible.builtin.get_url:
-    url: https://download.spotify.com/debian/pubkey_7A3A762FAFD4A51F.gpg
-    dest: /etc/apt/trusted.gpg.d/spotify.gpg
-    mode: "0644"
-  become: true
+---
+- name: "Spotify | Check if Spotify is already installed"
+  ansible.builtin.command: which spotify
+  register: spotify_check
+  changed_when: false
+  failed_when: false
+  ignore_errors: true
 
-- name: "Spotify | Add Spotify repository"
-  ansible.builtin.apt_repository:
-    repo: "deb http://repository.spotify.com stable non-free"
-    state: present
-    filename: spotify
-    update_cache: yes
-  become: true
+- name: "Spotify | Install using snap (recommended method)"
+  block:
+    - name: "Spotify | Check if snapd is installed"
+      ansible.builtin.command: which snap
+      register: snap_check
+      changed_when: false
+      failed_when: false
+      ignore_errors: true
 
-- name: "Spotify | Install Spotify client"
-  ansible.builtin.apt:
-    name: spotify-client
-    state: present
-  become: true
+    - name: "Spotify | Install snapd if needed"
+      ansible.builtin.apt:
+        name: snapd
+        state: present
+      become: true
+      when: snap_check.rc != 0
+
+    - name: "Spotify | Install Spotify via snap"
+      ansible.builtin.command: snap install spotify
+      become: true
+      register: snap_spotify_install
+      changed_when: "'spotify' in snap_spotify_install.stdout"
+      failed_when: 
+        - snap_spotify_install.rc != 0
+        - "'already installed' not in snap_spotify_install.stderr"
+  when: spotify_check.rc != 0
+
