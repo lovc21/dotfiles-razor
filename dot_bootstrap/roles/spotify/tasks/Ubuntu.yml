@@ -1,3 +1,4 @@
+
 - name: "Spotify | Add Spotify GPG key"
   ansible.builtin.shell:
     cmd: >
