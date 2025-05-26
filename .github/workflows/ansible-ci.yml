@@ -42,29 +42,226 @@ jobs:
 
       - name: Verify Installations
         run: |
+          # GitHub CLI
+          echo "=== GitHub CLI ==="
           which gh
           gh --version
-
+          
+          # AWS CLI
+          echo "=== AWS CLI ==="
           which aws
           aws --version
-
-          which bpytop
-          bpytop --version
-
+          
+          # bpytop/btop
+          echo "=== bpytop/btop ==="
+          which bpytop || which btop
+          bpytop --version || btop --version || echo "Version check not available"
+          
+          # Chrome
+          echo "=== Google Chrome ==="
           which google-chrome
           google-chrome --version
-
+          
+          # Discord
+          echo "=== Discord ==="
           which discord
-          discord --version
-
+          discord --version || echo "Version check not available"
+          
+          # Firefox
+          echo "=== Firefox ==="
           which firefox
           firefox --version
-
+          
+          # Flatpak
+          echo "=== Flatpak ==="
           which flatpak
           flatpak --version
-
+          
+          # VS Code
+          echo "=== VS Code ==="
+          which code
+          code --version
+          
+          # Terraform
+          echo "=== Terraform ==="
           which terraform
           terraform --version
+          
+          # FZF
+          echo "=== FZF ==="
+          which fzf
+          fzf --version
+          
+          # Git
+          echo "=== Git ==="
+          which git
+          git --version
+          
+          # Go
+          echo "=== Go ==="
+          which go
+          go version
+          
+          # Helm
+          echo "=== Helm ==="
+          which helm
+          helm version --short
+          
+          # Kubernetes CLI
+          echo "=== Kubernetes CLI ==="
+          which kubectl
+          kubectl version --client
+          
+          # Lazygit
+          echo "=== Lazygit ==="
+          which lazygit
+          lazygit --version
+          
+          # Lazydocker
+          echo "=== Lazydocker ==="
+          which lazydocker
+          lazydocker --version || echo "Version check not available"
+          
+          # Neofetch
+          echo "=== Neofetch ==="
+          which neofetch
+          neofetch --version
+          
+          # Neovim
+          echo "=== Neovim ==="
+          which nvim
+          nvim --version
+          
+          # NPM
+          echo "=== NPM ==="
+          which npm
+          npm --version
+          
+          # Obsidian
+          echo "=== Obsidian ==="
+          which obsidian || flatpak list | grep obsidian
+          
+          # Zig
+          echo "=== Zig ==="
+          which zig
+          zig version
+          
+          # Zoxide
+          echo "=== Zoxide ==="
+          which zoxide
+          zoxide --version
+          
+          # Just
+          echo "=== Just ==="
+          which just
+          just --version
+          
+          # jq
+          echo "=== jq ==="
+          which jq
+          jq --version
+          
+          # yq
+          echo "=== yq ==="
+          which yq
+          yq --version
+          
+          # htop
+          echo "=== htop ==="
+          which htop
+          htop --version
+          
+          # zsh
+          echo "=== zsh ==="
+          which zsh
+          zsh --version
+          
+          # tmux
+          echo "=== tmux ==="
+          which tmux
+          tmux -V
+          
+          # make
+          echo "=== make ==="
+          which make
+          make --version
+          
+          # wl-clipboard
+          echo "=== wl-clipboard ==="
+          which wl-copy
+          which wl-paste
+          
+          # Docker
+          echo "=== Docker ==="
+          which docker
+          docker --version
+          
+          # Node.js
+          echo "=== Node.js ==="
+          which node
+          node --version
+          
+          # pipx
+          echo "=== pipx ==="
+          which pipx
+          pipx --version
+          
+          # shellcheck
+          echo "=== shellcheck ==="
+          which shellcheck
+          shellcheck --version
+          
+          # tree
+          echo "=== tree ==="
+          which tree
+          tree --version
+          
+          # unzip
+          echo "=== unzip ==="
+          which unzip
+          unzip -v | head -n 1
+          
+          # wget
+          echo "=== wget ==="
+          which wget
+          wget --version | head -n 1
+          
+          # virt-manager
+          echo "=== virt-manager ==="
+          which virt-manager
+          virt-manager --version || echo "Version check not available"
+          
+          # yamllint
+          echo "=== yamllint ==="
+          which yamllint
+          yamllint --version
+          
+          # yubikey-manager
+          echo "=== yubikey-manager ==="
+          which ykman
+          ykman --version
+          
+          # yubioath-desktop
+          echo "=== yubioath-desktop ==="
+          which yubioath-desktop || flatpak list | grep yubico
+          
+          # dive
+          echo "=== dive ==="
+          which dive
+          dive --version
+          
+          # Spotify
+          echo "=== Spotify ==="
+          which spotify || flatpak list | grep spotify
+          
+          # Sublime Text
+          echo "=== Sublime Text ==="
+          which subl || which sublime_text
+          subl --version || sublime_text --version || echo "Version check not available"
+          
+          # JetBrains - checking for any JetBrains product
+          echo "=== JetBrains Products ==="
+          which idea || which pycharm || which webstorm || which clion || echo "No JetBrains IDE found"
         continue-on-error: true
 
       - name: Display Verification Results
