@@ -1,4 +1,0 @@
-[[rules]]
-id = "Generic API Key"
-description = "Generic API Key in code"
-regex = """(?i)api[_-]?key.*?[=:]\s*['"][A-Za-z0-9]{16,}['"]"""
