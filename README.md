@@ -1,4 +1,4 @@
-# Dotfiles and programs I use on my PC
+# Dotfiles and programs I use
 
 Here, you can find my entire configuration and setup.
 

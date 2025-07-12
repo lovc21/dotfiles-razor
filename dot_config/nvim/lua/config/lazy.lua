@@ -21,41 +21,13 @@ require("lazy").setup({
       enabled = false,
     },
 
-    { "nvimdev/dashboard-nvim", enabled = false },
-    { "glepnir/dashboard-nvim", enabled = false },
     {
-      "snacks.nvim",
-      enabled = true,
-      section = {
-        { section = "header" },
-        { icon = " ", title = "Keymaps", section = "keys", indent = 2, padding = 1 },
-        { icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
-        { icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
-        { section = "startup" },
-      },
+      "mfussenegger/nvim-lint",
       opts = {
-        dashboard = {
-          preset = {
-            header = [[
-      ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗
-      ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║
-      ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║
-      ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║
-      ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║
-      ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝]],
-            -- stylua: ignore
-            ---@type snacks.dashboard.Item[]
-            keys = {
-              { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
-              { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
-              { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
-              { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
-              { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
-              { icon = " ", key = "s", desc = "Restore Session", section = "session" },
-              { icon = " ", key = "x", desc = "Lazy Extras", action = ":LazyExtras" },
-              { icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy" },
-              { icon = " ", key = "q", desc = "Quit", action = ":qa" },
-            },
+        linters = {
+          terraform_validate = {
+            -- We only need to override the arguments
+            args = { "validate", "-json" },
           },
         },
       },
@@ -66,6 +38,7 @@ require("lazy").setup({
       enabled = false,
       build = "cargo build --release",
     },
+
     -- add LazyVim and import its plugins
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
     { import = "lazyvim.plugins.extras.lang.terraform" },
@@ -76,10 +49,11 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.lang.json" },
     { import = "lazyvim.plugins.extras.lang.python" },
     { import = "lazyvim.plugins.extras.editor.telescope" },
+
     {
       "folke/tokyonight.nvim",
       opts = {
-        dashboard = false,
+        dashboard = true,
         transparent = true,
         styles = {
           sidebars = "transparent",
@@ -187,7 +161,16 @@ require("lazy").setup({
           "lua-language-server",
           "pyright",
           "typescript-language-server",
+          "gopls",
+          "astro-language-server",
+          "html-lsp",
+          "css-lsp",
+          "tailwindcss-language-server",
+          "terraform-ls",
         },
+      },
+      dependencies = {
+        "williamboman/mason-lspconfig.nvim",
       },
     },
     {
@@ -196,6 +179,27 @@ require("lazy").setup({
         servers = {
           bashls = {},
           zls = {},
+          astro = {
+            filetypes = { "astro" },
+          },
+          html = {
+            filetypes = { "html" },
+          },
+          cssls = {
+            filetypes = { "css", "scss", "less" },
+          },
+          tailwindcss = {
+            filetypes = {
+              "astro",
+              "html",
+              "css",
+              "scss",
+              "javascript",
+              "typescript",
+              "react",
+            },
+          },
+          terraformls = {},
         },
       },
     },

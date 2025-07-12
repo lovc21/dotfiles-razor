@@ -3,12 +3,7 @@
     name: 
       - python3-pip
       - python3-setuptools
-    state: present
-  become: true
-
-- name: "BTOP | Install psutil Python module"
-  ansible.builtin.pip:
-    name: psutil
+      - python3-psutil
     state: present
   become: true
 
