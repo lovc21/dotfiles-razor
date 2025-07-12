@@ -2,6 +2,7 @@
 
 [![Ansible CI](https://github.com/lovc21/dotfiles/actions/workflows/ansible-lint.yml/badge.svg?branch=main)](https://github.com/lovc21/dotfiles/actions/workflows/ansible-lint.yml)
 [![Ansible Test](https://github.com/lovc21/dotfiles/actions/workflows/ansible-ci.yml/badge.svg)](https://github.com/lovc21/dotfiles/actions/workflows/ansible-ci.yml)
+[![secret-scan](https://github.com/lovc21/dotfiles/actions/workflows/secret-scan.yaml/badge.svg)](https://github.com/lovc21/dotfiles/actions/workflows/secret-scan.yaml)
 
 Here, you can find my entire configuration and setup.
 
