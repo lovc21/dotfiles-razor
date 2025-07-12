@@ -2,7 +2,7 @@
 
 [![Ansible CI](https://github.com/lovc21/dotfiles/actions/workflows/ansible-lint.yml/badge.svg?branch=main)](https://github.com/lovc21/dotfiles/actions/workflows/ansible-lint.yml)
 [![Ansible Test](https://github.com/lovc21/dotfiles/actions/workflows/ansible-ci.yml/badge.svg)](https://github.com/lovc21/dotfiles/actions/workflows/ansible-ci.yml)
-Here, you can find my entire configuration and setup.
+\\ Here, you can find my entire configuration and setup.
 
 > Fully automated, multi-OS development environment setup form scratch.
 
