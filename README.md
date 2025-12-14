@@ -1,16 +1,17 @@
-# Jakob’s Dotfiles and Programs
+# Dotfiles and Programs for my Ubuntu machine named "razor"
 
 [![Ansible CI](https://github.com/lovc21/dotfiles/actions/workflows/ansible-lint.yml/badge.svg?branch=main)](https://github.com/lovc21/dotfiles/actions/workflows/ansible-lint.yml)
 [![Ansible Test](https://github.com/lovc21/dotfiles/actions/workflows/ansible-ci.yml/badge.svg)](https://github.com/lovc21/dotfiles/actions/workflows/ansible-ci.yml)
 [![secret-scan](https://github.com/lovc21/dotfiles/actions/workflows/secret-scan.yaml/badge.svg)](https://github.com/lovc21/dotfiles/actions/workflows/secret-scan.yaml)
 
-Here, you can find my entire configuration and setup.
+Here, you can find my entire configuration and setup for my Ubuntu machine named "razor".
 
 > Fully automated, multi-OS development environment setup form scratch.
 
 **Table of Contents**
 
 - [Goal](#goal)
+- [Device Specifications](#device-specifications)
 - [Overview](#overview)  
 - [Quick Start](#quick-start)  
 - [Components](#components)  
@@ -20,6 +21,21 @@ Here, you can find my entire configuration and setup.
 ## Goal
 
 The goal with my dotfiles is to just run one command and have a new system up and running with no manual setup.
+
+## Device Specifications
+
+- **OS**: Ubuntu 24.04 LTS
+- **Standing screen display size:** 15.6 inches  
+- **Screen resolution:** 1920 × 1080 pixels  
+- **Max screen resolution:** 1920 × 1080  
+- **Processor:** AMD Ryzen 7 3750H @ 2.3 GHz  
+- **RAM:** 24 GB DDR4  
+- **Memory speed:** 2666 MHz  
+- **Disk capacity:** 1 TB
+- **Graphics coprocessor:** NVIDIA GeForce GTX 1660 Ti  
+- **Chipset brand:** NVIDIA  
+- **Card description:** Dedicated  
+- **Graphics card RAM size:** 16 GB  
 
 ## Overview
 
