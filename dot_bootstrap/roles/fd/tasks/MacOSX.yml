@@ -1,0 +1,7 @@
+---
+- name: "fd | MacOSX | Install fd"
+  community.general.homebrew:
+    name: fd
+    state: present
+  become: false
+  become_user: "{{ ansible_user_id }}"

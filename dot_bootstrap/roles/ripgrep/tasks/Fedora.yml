@@ -1,0 +1,6 @@
+---
+- name: "ripgrep | {{ ansible_distribution }} | Install ripgrep"
+  ansible.builtin.dnf:
+    name: ripgrep
+    state: present
+  become: true

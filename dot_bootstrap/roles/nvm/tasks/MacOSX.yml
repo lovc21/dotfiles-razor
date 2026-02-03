@@ -1,0 +1,7 @@
+---
+- name: "nvm | MacOSX | Install nvm"
+  community.general.homebrew:
+    name: nvm
+    state: present
+  become: false
+  become_user: "{{ ansible_user_id }}"

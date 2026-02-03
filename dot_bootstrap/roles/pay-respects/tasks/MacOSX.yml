@@ -1,0 +1,6 @@
+---
+- name: "pay-respects | MacOSX | Install pay-respects via cargo"
+  ansible.builtin.command: cargo install pay-respects
+  args:
+    creates: "{{ ansible_env.HOME }}/.cargo/bin/pay-respects"
+  become: false

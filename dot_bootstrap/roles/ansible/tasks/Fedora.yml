@@ -1,0 +1,6 @@
+---
+- name: "ansible | {{ ansible_distribution }} | Install ansible"
+  ansible.builtin.dnf:
+    name: ansible
+    state: present
+  become: true

@@ -120,7 +120,7 @@ export GOROOT=/home/jakob/.go
 export PATH=$GOROOT/bin:$PATH
 export GOPATH=/home/jakob/go
 export PATH=$GOPATH/bin:$PATH
-export GOPRIVATE=github.com/devrev/*
+export GOPRIVATE=github.com/flarenetwork/*
 
 complete -C /usr/bin/terraform terraform
 

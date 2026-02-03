@@ -1,0 +1,6 @@
+---
+- name: "eza | {{ ansible_distribution }} | Install eza"
+  ansible.builtin.dnf:
+    name: eza
+    state: present
+  become: true

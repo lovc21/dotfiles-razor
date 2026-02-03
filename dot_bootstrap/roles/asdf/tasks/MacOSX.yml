@@ -1,0 +1,7 @@
+---
+- name: "asdf | MacOSX | Install asdf"
+  community.general.homebrew:
+    name: asdf
+    state: present
+  become: false
+  become_user: "{{ ansible_user_id }}"

@@ -1,0 +1,7 @@
+---
+- name: "ghostty | MacOSX | Install ghostty"
+  community.general.homebrew_cask:
+    name: ghostty
+    state: present
+  become: false
+  become_user: "{{ ansible_user_id }}"

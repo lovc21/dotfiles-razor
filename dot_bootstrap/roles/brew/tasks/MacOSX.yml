@@ -1,0 +1,4 @@
+---
+- name: "brew | MacOSX | Homebrew already present"
+  ansible.builtin.debug:
+    msg: "Homebrew is already installed on macOS"

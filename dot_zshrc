@@ -6,6 +6,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -181,4 +182,20 @@ export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 
 export PATH="$HOME/.tfenv/bin:$PATH"
 
+# hook direnv into zsh
+export DIRENV_LOG_FORMAT=""
+eval "$(direnv hook zsh)"
+
+# GPG setup 
 export GPG_TTY=$(tty)
+export PINENTRY_USER_DATA="USE_CURSES=1"
+
+# Environment shortcuts
+sandbox() { source <(just sandbox); }
+staging() { source <(just staging); }
+production() { source <(just production); }
+sandbox-shared() { source <(just sandbox-shared); }
+shared() { source <(just shared); }
+
+# setup brew
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"

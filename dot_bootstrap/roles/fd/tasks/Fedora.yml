@@ -1,0 +1,6 @@
+---
+- name: "fd | {{ ansible_distribution }} | Install fd-find"
+  ansible.builtin.dnf:
+    name: fd-find
+    state: present
+  become: true

@@ -1,0 +1,7 @@
+---
+- name: "gcloud | MacOSX | Install google-cloud-sdk"
+  community.general.homebrew_cask:
+    name: google-cloud-sdk
+    state: present
+  become: false
+  become_user: "{{ ansible_user_id }}"

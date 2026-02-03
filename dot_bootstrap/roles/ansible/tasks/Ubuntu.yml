@@ -1,0 +1,13 @@
+---
+- name: "ansible | {{ ansible_distribution }} | Add Ansible PPA"
+  ansible.builtin.apt_repository:
+    repo: ppa:ansible/ansible
+    state: present
+  become: true
+
+- name: "ansible | {{ ansible_distribution }} | Install ansible"
+  ansible.builtin.apt:
+    name: ansible
+    state: present
+    update_cache: true
+  become: true

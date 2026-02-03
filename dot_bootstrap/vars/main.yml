@@ -45,12 +45,25 @@ default_roles:
   - spotify
   - sublime-text
   - wallpaper
+  - gcloud
+  - direnv
+  - pay-respects
+  - eza
+  - bat
+  - ripgrep
+  - fd
+  - nvm
+  - rust
+  - tfenv
+  - chezmoi
+  - ansible
+  - brew
+  - asdf
+  - ghostty
 exclude_roles: []
 
 wallpaper_path: "{{ role_path }}/b-098.jpg"
 
-
 k8s:
   repo:
     version: "v1.32"
-

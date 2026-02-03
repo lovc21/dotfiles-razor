@@ -19,6 +19,7 @@
   ansible.builtin.unarchive:
     src: "/tmp/awscliv2.zip"
     dest: "/tmp/"
+    remote_src: true
 
 - name: "AWS | Ubuntu | Install AWS CLI v2"
   ansible.builtin.command:

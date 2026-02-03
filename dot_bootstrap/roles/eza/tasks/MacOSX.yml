@@ -1,0 +1,7 @@
+---
+- name: "eza | MacOSX | Install eza"
+  community.general.homebrew:
+    name: eza
+    state: present
+  become: false
+  become_user: "{{ ansible_user_id }}"

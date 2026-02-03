@@ -1,7 +1,7 @@
 [user]
 	email = jakob.dekleva@gmail.com
 	name = Jakob
-  signingkey=0CF73BD5E76A69BA
+  signingkey=0xD5FEBACC8AC79C8A
 [commit]
     gpgsign = true
 [credential]

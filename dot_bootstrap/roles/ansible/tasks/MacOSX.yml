@@ -1,0 +1,7 @@
+---
+- name: "ansible | MacOSX | Install ansible"
+  community.general.homebrew:
+    name: ansible
+    state: present
+  become: false
+  become_user: "{{ ansible_user_id }}"

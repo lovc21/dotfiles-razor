@@ -1,0 +1,6 @@
+---
+- name: "direnv | {{ ansible_distribution }} | Install direnv"
+  ansible.builtin.dnf:
+    name: direnv
+    state: present
+  become: true
