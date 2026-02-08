@@ -1,13 +1,14 @@
 ---
 - name: "asdf | {{ ansible_distribution }} | Check if asdf is installed"
   ansible.builtin.stat:
-    path: "{{ ansible_env.HOME }}/.asdf"
+    path: "{{ host_user_home }}/.asdf"
   register: asdf_installed
+  become: false
 
 - name: "asdf | {{ ansible_distribution }} | Clone asdf"
   ansible.builtin.git:
     repo: https://github.com/asdf-vm/asdf.git
-    dest: "{{ ansible_env.HOME }}/.asdf"
+    dest: "{{ host_user_home }}/.asdf"
     depth: 1
   become: false
   when: not asdf_installed.stat.exists

@@ -1,13 +1,14 @@
 ---
 - name: "rust | {{ ansible_distribution }} | Check if rustup is installed"
   ansible.builtin.stat:
-    path: "{{ ansible_env.HOME }}/.cargo/bin/rustup"
+    path: "{{ host_user_home }}/.cargo/bin/rustup"
   register: rustup_installed
+  become: false
 
 - name: "rust | {{ ansible_distribution }} | Install rustup"
   ansible.builtin.shell: >
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
   args:
-    creates: "{{ ansible_env.HOME }}/.cargo/bin/rustup"
+    creates: "{{ host_user_home }}/.cargo/bin/rustup"
   become: false
   when: not rustup_installed.stat.exists

@@ -1,13 +1,14 @@
 ---
 - name: "tfenv | MacOSX | Check if tfenv is installed"
   ansible.builtin.stat:
-    path: "{{ ansible_env.HOME }}/.tfenv"
+    path: "{{ host_user_home }}/.tfenv"
   register: tfenv_installed
+  become: false
 
 - name: "tfenv | MacOSX | Clone tfenv"
   ansible.builtin.git:
     repo: https://github.com/tfutils/tfenv.git
-    dest: "{{ ansible_env.HOME }}/.tfenv"
+    dest: "{{ host_user_home }}/.tfenv"
     depth: 1
   become: false
   when: not tfenv_installed.stat.exists
