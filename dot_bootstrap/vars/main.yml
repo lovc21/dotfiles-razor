@@ -48,6 +48,7 @@ default_roles:
   - zsh
   - pay-respects
   - ghostty
+  - chrome
   - discord
   - firefox
   - flatpak
