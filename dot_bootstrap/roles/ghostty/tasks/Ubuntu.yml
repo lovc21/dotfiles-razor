@@ -5,6 +5,7 @@
       - libgtk-4-dev
       - libadwaita-1-dev
       - git
+      - gettext
     state: present
   become: true
 
