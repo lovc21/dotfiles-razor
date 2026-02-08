@@ -1,2 +1,74 @@
 ---
-# Ansible tasks for zig on Ubuntu
+- name: "zig | {{ ansible_facts['distribution'] }} | Define architecture"
+  ansible.builtin.set_fact:
+    zig_arch: "{{ ansible_facts['machine'] }}"
+
+- name: "zig | {{ ansible_facts['distribution'] }} | Get zig download index"
+  ansible.builtin.uri:
+    url: https://ziglang.org/download/index.json
+  register: zig_download_json
+  changed_when: false
+
+- name: "zig | {{ ansible_facts['distribution'] }} | Set latest stable version"
+  ansible.builtin.set_fact:
+    zig_version: "{{ zig_download_json.json | dict2items | rejectattr('key', 'equalto', 'master') | map(attribute='key') | first }}"
+
+- name: "zig | {{ ansible_facts['distribution'] }} | Check current zig version"
+  ansible.builtin.command: /usr/local/bin/zig version
+  register: current_zig_version
+  changed_when: false
+  failed_when: false
+
+- name: "zig | {{ ansible_facts['distribution'] }} | Show zig version info"
+  ansible.builtin.debug:
+    msg: "Current: {{ current_zig_version.stdout | default('not installed') }}, Latest: {{ zig_version }}"
+
+- name: "zig | {{ ansible_facts['distribution'] }} | Install zig"
+  block:
+    - name: "zig | {{ ansible_facts['distribution'] }} | Download zig"
+      ansible.builtin.get_url:
+        url: "https://ziglang.org/download/{{ zig_version }}/zig-linux-{{ zig_arch }}-{{ zig_version }}.tar.xz"
+        dest: "/tmp/zig-{{ zig_version }}.tar.xz"
+        mode: "0644"
+        force: true
+
+    - name: "zig | {{ ansible_facts['distribution'] }} | Remove old zig installation"
+      ansible.builtin.file:
+        path: /opt/zig
+        state: absent
+      become: true
+
+    - name: "zig | {{ ansible_facts['distribution'] }} | Create zig directory"
+      ansible.builtin.file:
+        path: /opt/zig
+        state: directory
+        mode: "0755"
+      become: true
+
+    - name: "zig | {{ ansible_facts['distribution'] }} | Extract zig"
+      ansible.builtin.unarchive:
+        src: "/tmp/zig-{{ zig_version }}.tar.xz"
+        dest: /opt/zig
+        remote_src: true
+        extra_opts: ['--strip-components=1']
+      become: true
+
+    - name: "zig | {{ ansible_facts['distribution'] }} | Create zig symlink"
+      ansible.builtin.file:
+        src: /opt/zig/zig
+        dest: /usr/local/bin/zig
+        state: link
+      become: true
+
+    - name: "zig | {{ ansible_facts['distribution'] }} | Verify zig installation after symlink"
+      ansible.builtin.command: "{{ item }}"
+      loop:
+        - which zig
+        - zig version
+      register: zig_verify_output
+      changed_when: false
+      failed_when: false
+
+    - name: "zig | {{ ansible_facts['distribution'] }} | Debug zig verification"
+      ansible.builtin.debug:
+        var: zig_verify_output
