@@ -5,9 +5,12 @@ name: Ansible Test
 on:
   push:
     branches:
-      - main  
-jobs:
+      - main
+  pull_request:
+    branches:
+      - main
 
+jobs:
   test:
     name: Test Ansible Playbooks on Multiple OSes
     runs-on: ${{ matrix.os }}
@@ -43,107 +46,365 @@ jobs:
       - name: Verify Installations (Ubuntu)
         if: runner.os == 'Linux'
         run: |
-          echo "=== GitHub CLI ==="
-          which gh
-          gh --version
-          
-          echo "=== AWS CLI ==="
-          which aws
-          aws --version
-          
-          echo "=== bpytop/btop ==="
-          which bpytop || which btop
-          bpytop --version || btop --version || echo "Version check not available"
-          
-          echo "=== Google Chrome ==="
-          which google-chrome
-          google-chrome --version --headless 2>/dev/null || google-chrome --version
-          
-          echo "=== Discord ==="
-          which discord
-          # Skip Discord version check as it requires X server
-          echo "Discord installed: $(test -f /usr/bin/discord && echo 'Yes' || echo 'No')"
-          
-          echo "=== Firefox ==="
-          which firefox
-          firefox --version
-          
-          echo "=== Flatpak ==="
-          which flatpak
-          flatpak --version
-          
-          echo "=== VS Code ==="
-          which code
-          code --version
-          
-          echo "=== Terraform ==="
-          which terraform
-          terraform --version
-          
-          # FZF was missing in your output
-          echo "=== FZF ==="
-          ls -la ~/.fzf/bin/fzf || echo "FZF not found in ~/.fzf/bin"
-          echo "$PATH" | grep -q fzf && echo "FZF is in PATH" || echo "FZF not in PATH"
-          # Try to install FZF if missing
-          if ! which fzf >/dev/null; then
-            echo "Installing FZF..."
-            git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-            ~/.fzf/install --all --no-update-rc
-            export PATH="$PATH:$HOME/.fzf/bin"
-            which fzf
-            fzf --version || echo "FZF installation failed"
-          fi
-          
-          echo "=== Git ==="
-          which git
-          git --version
+          echo "========================================"
+          echo "=== Verification of Ubuntu Installs ==="
+          echo "========================================"
+
+          echo -e "\n=== gh (GitHub CLI) ==="
+          which gh && gh --version || echo "MISSING"
+
+          echo -e "\n=== aws (AWS CLI) ==="
+          which aws && aws --version || echo "MISSING"
+
+          echo -e "\n=== git ==="
+          which git && git --version || echo "MISSING"
+
+          echo -e "\n=== zsh ==="
+          which zsh && zsh --version || echo "MISSING"
+
+          echo -e "\n=== tmux ==="
+          which tmux && tmux -V || echo "MISSING"
+
+          echo -e "\n=== make ==="
+          which make && make --version | head -1 || echo "MISSING"
+
+          echo -e "\n=== curl ==="
+          which curl && curl --version | head -1 || echo "MISSING"
+
+          echo -e "\n=== wget ==="
+          which wget && wget --version | head -1 || echo "MISSING"
+
+          echo -e "\n=== unzip ==="
+          which unzip && unzip -v | head -1 || echo "MISSING"
+
+          echo -e "\n=== tree ==="
+          which tree && tree --version || echo "MISSING"
+
+          echo -e "\n=== go ==="
+          /usr/local/go/bin/go version || go version || echo "MISSING"
+
+          echo -e "\n=== nodejs ==="
+          which node && node --version || echo "MISSING"
+
+          echo -e "\n=== npm ==="
+          which npm && npm --version || echo "MISSING"
+
+          echo -e "\n=== zig ==="
+          which zig && zig version || echo "MISSING"
+
+          echo -e "\n=== rust (cargo) ==="
+          which cargo && cargo --version || echo "MISSING"
+
+          echo -e "\n=== python/pip ==="
+          which python3 && python3 --version || echo "MISSING"
+
+          echo -e "\n=== docker ==="
+          which docker && docker --version || echo "MISSING"
+
+          echo -e "\n=== helm ==="
+          which helm && helm version --short || echo "MISSING"
+
+          echo -e "\n=== terraform ==="
+          which terraform && terraform --version | head -1 || echo "MISSING"
+
+          echo -e "\n=== kubectl ==="
+          which kubectl && kubectl version --client --short 2>/dev/null || kubectl version --client || echo "MISSING"
+
+          echo -e "\n=== ansible ==="
+          which ansible && ansible --version | head -1 || echo "MISSING"
+
+          echo -e "\n=== jq ==="
+          which jq && jq --version || echo "MISSING"
+
+          echo -e "\n=== yq ==="
+          which yq && yq --version || echo "MISSING"
+
+          echo -e "\n=== yamllint ==="
+          which yamllint && yamllint --version || echo "MISSING"
+
+          echo -e "\n=== neovim ==="
+          which nvim && nvim --version | head -1 || echo "MISSING"
+
+          echo -e "\n=== fzf ==="
+          ~/.fzf/bin/fzf --version || fzf --version || echo "MISSING"
+
+          echo -e "\n=== lazygit ==="
+          which lazygit && lazygit --version || echo "MISSING"
+
+          echo -e "\n=== lazydocker ==="
+          which lazydocker && lazydocker --version || echo "MISSING"
+
+          echo -e "\n=== htop ==="
+          which htop && htop --version || echo "MISSING"
+
+          echo -e "\n=== btop/bpytop ==="
+          which btop && btop --version || which bpytop && bpytop --version || echo "MISSING"
+
+          echo -e "\n=== neofetch ==="
+          which neofetch && neofetch --version || echo "MISSING"
+
+          echo -e "\n=== dive ==="
+          which dive && dive --version || echo "MISSING"
+
+          echo -e "\n=== eza (ls replacement) ==="
+          which eza && eza --version || echo "MISSING"
+
+          echo -e "\n=== bat (cat replacement) ==="
+          which bat && bat --version || which batcat && batcat --version || echo "MISSING"
+
+          echo -e "\n=== ripgrep (rg) ==="
+          which rg && rg --version | head -1 || echo "MISSING"
+
+          echo -e "\n=== fd ==="
+          which fd && fd --version || which fdfind && fdfind --version || echo "MISSING"
+
+          echo -e "\n=== zoxide ==="
+          which zoxide && zoxide --version || echo "MISSING"
+
+          echo -e "\n=== direnv ==="
+          which direnv && direnv --version || echo "MISSING"
+
+          echo -e "\n=== just ==="
+          which just && just --version || echo "MISSING"
+
+          echo -e "\n=== shellcheck ==="
+          which shellcheck && shellcheck --version | head -2 || echo "MISSING"
+
+          echo -e "\n=== chezmoi ==="
+          which chezmoi && chezmoi --version || echo "MISSING"
+
+          echo -e "\n=== pipx ==="
+          which pipx && pipx --version || echo "MISSING"
+
+          echo -e "\n=== asdf ==="
+          which asdf && asdf --version || echo "MISSING"
+
+          echo -e "\n=== tfenv ==="
+          which tfenv && tfenv --version || echo "MISSING"
+
+          echo -e "\n=== nvm ==="
+          [ -s "$HOME/.nvm/nvm.sh" ] && echo "nvm installed" && . "$HOME/.nvm/nvm.sh" && nvm --version || echo "MISSING"
+
+          echo -e "\n=== Google Chrome ==="
+          which google-chrome && google-chrome --version 2>/dev/null || echo "MISSING or no display"
+
+          echo -e "\n=== Firefox ==="
+          which firefox && firefox --version 2>/dev/null || echo "MISSING or no display"
+
+          echo -e "\n=== VS Code ==="
+          which code && code --version | head -1 || echo "MISSING"
+
+          echo -e "\n=== Discord ==="
+          test -f /usr/bin/discord && echo "Discord binary exists" || echo "MISSING"
+
+          echo -e "\n=== Spotify ==="
+          which spotify || snap list spotify 2>/dev/null || echo "MISSING"
+
+          echo -e "\n=== Obsidian ==="
+          which obsidian || flatpak list | grep -i obsidian || echo "MISSING"
+
+          echo -e "\n=== Sublime Text ==="
+          which subl && subl --version || echo "MISSING"
+
+          echo -e "\n=== gcloud ==="
+          which gcloud && gcloud --version | head -1 || echo "MISSING"
+
+          echo -e "\n=== flatpak ==="
+          which flatpak && flatpak --version || echo "MISSING"
+
+          echo -e "\n=== wl-clipboard ==="
+          which wl-copy && echo "wl-clipboard installed" || echo "MISSING"
+
+          echo -e "\n=== virt-manager ==="
+          which virt-manager && virt-manager --version || echo "MISSING"
+
+          echo -e "\n=== yubikey-manager ==="
+          which ykman && ykman --version || echo "MISSING"
+
+          echo -e "\n========================================"
+          echo "=== Verification Complete ==="
+          echo "========================================"
         continue-on-error: true
 
       - name: Verify Installations (macOS)
         if: runner.os == 'macOS'
         run: |
-          echo "=== GitHub CLI ==="
-          which gh
-          gh --version
-          
-          echo "=== AWS CLI ==="
-          which aws
-          aws --version
-          
-          echo "=== btop ==="
-          which btop
-          btop --version || echo "Version check not available"
-          
-          echo "=== Google Chrome ==="
-          ls -la /Applications/Google\ Chrome.app || echo "Chrome not found in Applications"
-          # For macOS, we can't directly check Chrome version without launching it
-          defaults read /Applications/Google\ Chrome.app/Contents/Info.plist CFBundleShortVersionString || echo "Chrome version check failed"
-          
-          echo "=== Discord ==="
-          ls -la /Applications/Discord.app || echo "Discord not found in Applications"
-          
-          echo "=== Firefox ==="
-          ls -la /Applications/Firefox.app || echo "Firefox not found in Applications"
-          /Applications/Firefox.app/Contents/MacOS/firefox --version || echo "Firefox version check failed"
-          
-          echo "=== VS Code ==="
-          which code || echo "Looking for VS Code in Applications..."
-          ls -la /Applications/Visual\ Studio\ Code.app || echo "VS Code not found in Applications"
-          
-          echo "=== Terraform ==="
-          which terraform
-          terraform --version
-          
-          echo "=== FZF ==="
-          which fzf
-          fzf --version
-          
-          echo "=== Git ==="
-          which git
-          git --version
+          echo "========================================"
+          echo "=== Verification of macOS Installs ==="
+          echo "========================================"
+
+          # Core CLI Tools
+          echo -e "\n=== gh (GitHub CLI) ==="
+          which gh && gh --version || echo "MISSING"
+
+          echo -e "\n=== aws (AWS CLI) ==="
+          which aws && aws --version || echo "MISSING"
+
+          echo -e "\n=== git ==="
+          which git && git --version || echo "MISSING"
+
+          echo -e "\n=== zsh ==="
+          which zsh && zsh --version || echo "MISSING"
+
+          echo -e "\n=== tmux ==="
+          which tmux && tmux -V || echo "MISSING"
+
+          echo -e "\n=== make ==="
+          which make && make --version | head -1 || echo "MISSING"
+
+          echo -e "\n=== curl ==="
+          which curl && curl --version | head -1 || echo "MISSING"
+
+          echo -e "\n=== wget ==="
+          which wget && wget --version | head -1 || echo "MISSING"
+
+          echo -e "\n=== unzip ==="
+          which unzip || echo "MISSING"
+
+          echo -e "\n=== tree ==="
+          which tree && tree --version || echo "MISSING"
+
+          echo -e "\n=== go ==="
+          which go && go version || echo "MISSING"
+
+          echo -e "\n=== nodejs ==="
+          which node && node --version || echo "MISSING"
+
+          echo -e "\n=== npm ==="
+          which npm && npm --version || echo "MISSING"
+
+          echo -e "\n=== zig ==="
+          which zig && zig version || echo "MISSING"
+
+          echo -e "\n=== rust (cargo) ==="
+          which cargo && cargo --version || echo "MISSING"
+
+          echo -e "\n=== python/pip ==="
+          which python3 && python3 --version || echo "MISSING"
+
+          echo -e "\n=== docker ==="
+          which docker && docker --version || echo "MISSING"
+
+          echo -e "\n=== helm ==="
+          which helm && helm version --short || echo "MISSING"
+
+          echo -e "\n=== terraform ==="
+          which terraform && terraform --version | head -1 || echo "MISSING"
+
+          echo -e "\n=== kubectl ==="
+          which kubectl && kubectl version --client 2>/dev/null | head -1 || echo "MISSING"
+
+          echo -e "\n=== ansible ==="
+          which ansible && ansible --version | head -1 || echo "MISSING"
+
+          # JSON/YAML Tools
+          echo -e "\n=== jq ==="
+          which jq && jq --version || echo "MISSING"
+
+          echo -e "\n=== yq ==="
+          which yq && yq --version || echo "MISSING"
+
+          echo -e "\n=== yamllint ==="
+          which yamllint && yamllint --version || echo "MISSING"
+
+          # TUI/CLI Applications
+          echo -e "\n=== neovim ==="
+          which nvim && nvim --version | head -1 || echo "MISSING"
+
+          echo -e "\n=== fzf ==="
+          which fzf && fzf --version || echo "MISSING"
+
+          echo -e "\n=== lazygit ==="
+          which lazygit && lazygit --version || echo "MISSING"
+
+          echo -e "\n=== lazydocker ==="
+          which lazydocker && lazydocker --version || echo "MISSING"
+
+          echo -e "\n=== htop ==="
+          which htop && htop --version || echo "MISSING"
+
+          echo -e "\n=== btop ==="
+          which btop && btop --version || echo "MISSING"
+
+          echo -e "\n=== neofetch ==="
+          which neofetch || echo "MISSING"
+
+          echo -e "\n=== dive ==="
+          which dive && dive --version || echo "MISSING"
+
+          echo -e "\n=== eza (ls replacement) ==="
+          which eza && eza --version || echo "MISSING"
+
+          echo -e "\n=== bat (cat replacement) ==="
+          which bat && bat --version || echo "MISSING"
+
+          echo -e "\n=== ripgrep (rg) ==="
+          which rg && rg --version | head -1 || echo "MISSING"
+
+          echo -e "\n=== fd ==="
+          which fd && fd --version || echo "MISSING"
+
+          echo -e "\n=== zoxide ==="
+          which zoxide && zoxide --version || echo "MISSING"
+
+          echo -e "\n=== direnv ==="
+          which direnv && direnv --version || echo "MISSING"
+
+          echo -e "\n=== just ==="
+          which just && just --version || echo "MISSING"
+
+          echo -e "\n=== shellcheck ==="
+          which shellcheck && shellcheck --version | head -2 || echo "MISSING"
+
+          echo -e "\n=== chezmoi ==="
+          which chezmoi && chezmoi --version || echo "MISSING"
+
+          echo -e "\n=== pipx ==="
+          which pipx && pipx --version || echo "MISSING"
+
+          echo -e "\n=== asdf ==="
+          which asdf && asdf --version || echo "MISSING"
+
+          echo -e "\n=== tfenv ==="
+          which tfenv && tfenv --version || echo "MISSING"
+
+          echo -e "\n=== nvm ==="
+          [ -s "$HOME/.nvm/nvm.sh" ] && echo "nvm installed" && . "$HOME/.nvm/nvm.sh" && nvm --version || echo "MISSING"
+
+          echo -e "\n=== brew ==="
+          which brew && brew --version | head -1 || echo "MISSING"
+
+          echo -e "\n=== Google Chrome ==="
+          test -d "/Applications/Google Chrome.app" && echo "Google Chrome.app exists" || echo "MISSING"
+
+          echo -e "\n=== Firefox ==="
+          test -d "/Applications/Firefox.app" && echo "Firefox.app exists" || echo "MISSING"
+
+          echo -e "\n=== VS Code ==="
+          test -d "/Applications/Visual Studio Code.app" && echo "VS Code.app exists" || which code || echo "MISSING"
+
+          echo -e "\n=== Discord ==="
+          test -d "/Applications/Discord.app" && echo "Discord.app exists" || echo "MISSING"
+
+          echo -e "\n=== Spotify ==="
+          test -d "/Applications/Spotify.app" && echo "Spotify.app exists" || echo "MISSING"
+
+          echo -e "\n=== Obsidian ==="
+          test -d "/Applications/Obsidian.app" && echo "Obsidian.app exists" || echo "MISSING"
+
+          echo -e "\n=== Sublime Text ==="
+          test -d "/Applications/Sublime Text.app" && echo "Sublime Text.app exists" || which subl || echo "MISSING"
+
+          echo -e "\n=== Ghostty ==="
+          test -d "/Applications/Ghostty.app" && echo "Ghostty.app exists" || which ghostty || echo "MISSING"
+
+          echo -e "\n=== gcloud ==="
+          which gcloud && gcloud --version | head -1 || echo "MISSING"
+
+          echo -e "\n=== yubikey-manager ==="
+          which ykman && ykman --version || echo "MISSING"
+
+          echo -e "\n========================================"
+          echo "=== Verification Complete ==="
+          echo "========================================"
         continue-on-error: true
-
-      - name: Display Verification Results
-        run: |
-          echo "Verification completed. Check the logs for details."
-

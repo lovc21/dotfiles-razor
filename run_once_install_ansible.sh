@@ -98,7 +98,13 @@ run_playbook() {
     error_exit "Ansible inventory file not found at ${INVENTORY_PATH}."
   fi
 
-  ansible-playbook -i "${INVENTORY_PATH}" "${PLAYBOOK_PATH}" --ask-become-pass || error_exit "Ansible playbook execution failed."
+  # In CI environments (GitHub Actions, etc.), don't ask for password
+  if [ -n "${CI}" ] || [ -n "${GITHUB_ACTIONS}" ]; then
+    echo "Running in CI mode (no password prompt)"
+    ansible-playbook -i "${INVENTORY_PATH}" "${PLAYBOOK_PATH}" --become || error_exit "Ansible playbook execution failed."
+  else
+    ansible-playbook -i "${INVENTORY_PATH}" "${PLAYBOOK_PATH}" --ask-become-pass || error_exit "Ansible playbook execution failed."
+  fi
 
   echo "Ansible playbook executed successfully."
 }

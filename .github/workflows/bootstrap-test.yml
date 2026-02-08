@@ -1,0 +1,215 @@
+# .github/workflows/bootstrap-test.yml
+# Tests the full bootstrap process from scratch (chezmoi init -> ansible)
+
+name: Full Bootstrap Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+env:
+  GITHUB_USERNAME: lovc21
+
+jobs:
+  bootstrap-ubuntu:
+    name: Bootstrap Ubuntu
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install prerequisites
+        run: |
+          sudo apt update
+          sudo apt install -y git curl
+
+      - name: Install chezmoi and bootstrap
+        run: |
+          sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply ${{ env.GITHUB_USERNAME }}
+        env:
+          ANSIBLE_FORCE_COLOR: true
+
+      - name: Verify key installations
+        run: |
+          echo "=== Verifying Bootstrap Results ==="
+
+          echo "--- chezmoi ---"
+          chezmoi --version
+
+          echo "--- git ---"
+          git --version
+
+          echo "--- zsh ---"
+          zsh --version
+
+          echo "--- tmux ---"
+          tmux -V
+
+          echo "--- neovim ---"
+          nvim --version | head -1
+
+          echo "--- fzf ---"
+          ~/.fzf/bin/fzf --version || fzf --version || echo "FZF check failed"
+
+          echo "--- lazygit ---"
+          lazygit --version || echo "lazygit not found"
+
+          echo "--- go ---"
+          /usr/local/go/bin/go version || go version || echo "go not found"
+
+          echo "--- jq ---"
+          jq --version
+
+          echo "--- yq ---"
+          yq --version || echo "yq not found"
+
+          echo "--- htop ---"
+          htop --version
+
+          echo "--- tree ---"
+          tree --version
+
+          echo "--- AWS CLI ---"
+          aws --version || echo "AWS CLI not found"
+
+          echo "--- Docker ---"
+          docker --version || echo "Docker not found"
+
+          echo "--- Helm ---"
+          helm version --short || echo "Helm not found"
+
+          echo "--- Terraform ---"
+          terraform --version || echo "Terraform not found"
+        continue-on-error: true
+
+      - name: Check dotfiles applied
+        run: |
+          echo "=== Checking dotfiles ==="
+
+          echo "--- .zshrc ---"
+          test -f ~/.zshrc && echo "EXISTS" || echo "MISSING"
+
+          echo "--- .gitconfig ---"
+          test -f ~/.gitconfig && echo "EXISTS" || echo "MISSING"
+
+          echo "--- .tmux.conf or .config/tmux ---"
+          test -f ~/.tmux.conf && echo "EXISTS" || test -d ~/.config/tmux && echo "EXISTS in .config" || echo "MISSING"
+
+          echo "--- .config/nvim ---"
+          test -d ~/.config/nvim && echo "EXISTS" || echo "MISSING"
+
+  bootstrap-fedora:
+    name: Bootstrap Fedora
+    runs-on: ubuntu-latest
+    container:
+      image: fedora:latest
+    steps:
+      - name: Install prerequisites
+        run: |
+          dnf install -y git curl sudo findutils
+
+      - name: Install chezmoi and bootstrap
+        run: |
+          sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply ${{ env.GITHUB_USERNAME }}
+        env:
+          ANSIBLE_FORCE_COLOR: true
+
+      - name: Verify key installations
+        run: |
+          echo "=== Verifying Bootstrap Results ==="
+
+          echo "--- chezmoi ---"
+          chezmoi --version
+
+          echo "--- git ---"
+          git --version
+
+          echo "--- zsh ---"
+          zsh --version || echo "zsh not found"
+
+          echo "--- tmux ---"
+          tmux -V || echo "tmux not found"
+
+          echo "--- neovim ---"
+          nvim --version | head -1 || echo "neovim not found"
+
+          echo "--- jq ---"
+          jq --version || echo "jq not found"
+
+          echo "--- htop ---"
+          htop --version || echo "htop not found"
+        continue-on-error: true
+
+      - name: Check dotfiles applied
+        run: |
+          echo "=== Checking dotfiles ==="
+
+          echo "--- .zshrc ---"
+          test -f ~/.zshrc && echo "EXISTS" || echo "MISSING"
+
+          echo "--- .gitconfig ---"
+          test -f ~/.gitconfig && echo "EXISTS" || echo "MISSING"
+
+  bootstrap-macos:
+    name: Bootstrap macOS
+    runs-on: macos-latest
+    steps:
+      - name: Install Homebrew (if needed)
+        run: |
+          which brew || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+      - name: Install prerequisites
+        run: |
+          brew install git curl
+
+      - name: Install chezmoi and bootstrap
+        run: |
+          sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply ${{ env.GITHUB_USERNAME }}
+        env:
+          ANSIBLE_FORCE_COLOR: true
+
+      - name: Verify key installations
+        run: |
+          echo "=== Verifying Bootstrap Results ==="
+
+          echo "--- chezmoi ---"
+          chezmoi --version
+
+          echo "--- git ---"
+          git --version
+
+          echo "--- zsh ---"
+          zsh --version
+
+          echo "--- tmux ---"
+          tmux -V || echo "tmux not found"
+
+          echo "--- neovim ---"
+          nvim --version | head -1 || echo "neovim not found"
+
+          echo "--- fzf ---"
+          fzf --version || echo "fzf not found"
+
+          echo "--- jq ---"
+          jq --version || echo "jq not found"
+
+          echo "--- htop ---"
+          htop --version || echo "htop not found"
+
+          echo "--- AWS CLI ---"
+          aws --version || echo "AWS CLI not found"
+        continue-on-error: true
+
+      - name: Check dotfiles applied
+        run: |
+          echo "=== Checking dotfiles ==="
+
+          echo "--- .zshrc ---"
+          test -f ~/.zshrc && echo "EXISTS" || echo "MISSING"
+
+          echo "--- .gitconfig ---"
+          test -f ~/.gitconfig && echo "EXISTS" || echo "MISSING"
+
+          echo "--- .config/nvim ---"
+          test -d ~/.config/nvim && echo "EXISTS" || echo "MISSING"
