@@ -169,8 +169,12 @@ jobs:
         env:
           ANSIBLE_FORCE_COLOR: true
 
-      - name: Add chezmoi to PATH
-        run: echo "$HOME/.local/bin" >> $GITHUB_PATH
+      - name: Debug chezmoi location and PATH
+        run: |
+          echo "Current PATH: $PATH"
+          find "$HOME" -name chezmoi 2>/dev/null || echo "chezmoi not found in HOME"
+          ls -F "$HOME/.local/bin/" || echo "~/.local/bin/ does not exist or is empty"
+          ls -F "$HOME/bin/" || echo "~/bin/ does not exist or is empty"
 
       - name: Verify key installations
         run: |

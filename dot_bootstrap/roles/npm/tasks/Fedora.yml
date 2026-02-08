@@ -1,6 +1,5 @@
 ---
 # Ansible tasks for npm on Fedora
----
 - name: Install Latest NodeJS LTS on Fedora
   hosts: fedora
   become: true
