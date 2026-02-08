@@ -1,0 +1,10 @@
+---
+- name: Chezmoi | Verify installation
+  ansible.builtin.command: chezmoi --version
+  register: chezmoi_version
+  changed_when: false
+  failed_when: false
+
+- name: Chezmoi | Display version
+  ansible.builtin.debug:
+    msg: "Chezmoi version: {{ chezmoi_version.stdout | default('Not installed') }}"
