@@ -18,7 +18,7 @@
       ansible.builtin.set_fact:
         run_roles: >-
           {{
-            default_roles | difference(exclude_roles | default([])) | sort
+            default_roles | difference(exclude_roles | default([]))
             if 'all' in (ansible_run_tags | default(['all']))
             else ansible_run_tags
           }}

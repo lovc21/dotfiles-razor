@@ -1,65 +1,65 @@
 default_roles:
+  # Core tools
+  - git
+  - make
+  - unzip
+  - wget
+  - tree
+  - ansible
+  - brew
+  - chezmoi
+  - go
+  - rust
+  - zig
+  - nodejs
+  - npm
+  - nvm
+  - pipx
   - gh
   - aws
+  - fzf
+  - jq
+  - yq
+  - just
+  - htop
   - bpytop
-  - chrome
+  - bat
+  - eza
+  - fd
+  - ripgrep
+  - zoxide
+  - direnv
+  - lazygit
+  - lazydocker
+  - dive
+  - neofetch
+  - shellcheck
+  - yamllint
+  - wl-clipboard
+  - docker
+  - helm
+  - k8s
+  - terraform
+  - tfenv
+  - gcloud
+  - asdf
+  - neovim
+  - tmux
+  - zsh
+  - pay-respects
+  - ghostty
   - discord
   - firefox
   - flatpak
   - code
-  - terraform
-  - fzf
-  - git
-  - go
-  - helm
-  - k8s
-  - lazygit
-  - lazydocker
-  - neofetch
-  - neovim
-  - npm
-  - obsidian
-  - zig
-  - zoxide
-  - just
-  - jq
-  - yq
-  - htop
-  - zsh
-  - tmux
-  - make
-  - wl-clipboard
-  - docker
   - Jetbrains
-  - nodejs
-  - pipx
-  - shellcheck
-  - tree
-  - unzip
-  - wget
-  - virt-manager
-  - yamllint
-  - yubikey-manager
-  - yubioath-desktop
-  - dive
+  - obsidian
   - spotify
   - sublime-text
   - wallpaper
-  - gcloud
-  - direnv
-  - pay-respects
-  - eza
-  - bat
-  - ripgrep
-  - fd
-  - nvm
-  - rust
-  - tfenv
-  - chezmoi
-  - ansible
-  - brew
-  - asdf
-  - ghostty
+  - virt-manager
+  - yubikey-manager
+  - yubioath-desktop
 exclude_roles: []
 
 wallpaper_path: "{{ role_path }}/b-098.jpg"

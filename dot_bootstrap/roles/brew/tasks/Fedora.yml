@@ -1,10 +1,10 @@
 ---
-- name: "brew | {{ ansible_distribution }} | Check if Homebrew is installed"
+- name: "brew | {{ ansible_facts['distribution'] }} | Check if Homebrew is installed"
   ansible.builtin.stat:
     path: /home/linuxbrew/.linuxbrew/bin/brew
   register: brew_installed
 
-- name: "brew | {{ ansible_distribution }} | Install Homebrew"
+- name: "brew | {{ ansible_facts['distribution'] }} | Install Homebrew"
   ansible.builtin.shell: >
     NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   become: false

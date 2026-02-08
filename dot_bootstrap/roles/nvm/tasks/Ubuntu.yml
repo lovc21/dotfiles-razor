@@ -1,11 +1,11 @@
 ---
-- name: "nvm | {{ ansible_distribution }} | Check if nvm is installed"
+- name: "nvm | {{ ansible_facts['distribution'] }} | Check if nvm is installed"
   ansible.builtin.stat:
     path: "{{ host_user_home }}/.nvm/nvm.sh"
   register: nvm_installed
   become: false
 
-- name: "nvm | {{ ansible_distribution }} | Install nvm"
+- name: "nvm | {{ ansible_facts['distribution'] }} | Install nvm"
   ansible.builtin.shell: >
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
   args:

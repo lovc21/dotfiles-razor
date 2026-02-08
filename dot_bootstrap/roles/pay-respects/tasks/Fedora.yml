@@ -1,5 +1,5 @@
 ---
-- name: "pay-respects | {{ ansible_distribution }} | Install pay-respects via cargo"
+- name: "pay-respects | {{ ansible_facts['distribution'] }} | Install pay-respects via cargo"
   ansible.builtin.command: cargo install pay-respects
   args:
     creates: "{{ host_user_home }}/.cargo/bin/pay-respects"

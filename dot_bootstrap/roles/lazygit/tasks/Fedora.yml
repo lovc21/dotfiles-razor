@@ -45,7 +45,7 @@
     - name: "LAZYGIT | Define lazygit_file"
       ansible.builtin.set_fact:
         lazygit_file: "lazygit_{{ lazygit_latest_release | regex_replace('^v', '') }}_Linux_x86_64"
-        # ^ If you're on arm64, adjust to _Linux_arm64 or detect via ansible_machine
+        # ^ If you're on arm64, adjust to _Linux_arm64 or detect via ansible_facts['machine']
 
     - name: "LAZYGIT | Ensure clean download destination"
       ansible.builtin.file:
@@ -84,8 +84,8 @@
         remote_src: true
         src: "/tmp/lazygit"
         dest: "/usr/local/bin/"
-        owner: "{{ host_user | default(ansible_user_id) }}"
-        group: "{{ host_user | default(ansible_user_id) }}"
+        owner: "{{ host_user | default(ansible_facts['user_id']) }}"
+        group: "{{ host_user | default(ansible_facts['user_id']) }}"
         force: true
         mode: "0755"
       become: true

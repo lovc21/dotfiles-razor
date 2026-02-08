@@ -1,5 +1,5 @@
 ---
-- name: "gcloud | {{ ansible_distribution }} | Add Google Cloud repository"
+- name: "gcloud | {{ ansible_facts['distribution'] }} | Add Google Cloud repository"
   ansible.builtin.yum_repository:
     name: google-cloud-cli
     description: Google Cloud CLI
@@ -9,7 +9,7 @@
     enabled: true
   become: true
 
-- name: "gcloud | {{ ansible_distribution }} | Install google-cloud-cli"
+- name: "gcloud | {{ ansible_facts['distribution'] }} | Install google-cloud-cli"
   ansible.builtin.dnf:
     name: google-cloud-cli
     state: present

@@ -2,11 +2,11 @@
 # Chezmoi is already installed by the bootstrap script before ansible runs
 # This role just verifies the installation
 
-- name: "chezmoi | Checking for Distribution Config: {{ ansible_distribution }}"
+- name: "chezmoi | Checking for Distribution Config: {{ ansible_facts['distribution'] }}"
   ansible.builtin.stat:
-    path: "{{ role_path }}/tasks/{{ ansible_distribution }}.yml"
+    path: "{{ role_path }}/tasks/{{ ansible_facts['distribution'] }}.yml"
   register: chezmoi_distribution
 
-- name: "chezmoi | Run Tasks: {{ ansible_distribution }}"
-  ansible.builtin.include_tasks: "{{ ansible_distribution }}.yml"
+- name: "chezmoi | Run Tasks: {{ ansible_facts['distribution'] }}"
+  ansible.builtin.include_tasks: "{{ ansible_facts['distribution'] }}.yml"
   when: chezmoi_distribution.stat.exists

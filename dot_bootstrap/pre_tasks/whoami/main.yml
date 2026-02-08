@@ -1,7 +1,7 @@
 ---
 - name: Register Current User
   ansible.builtin.set_fact:
-    host_user: "{{ lookup('env', 'USER') | default(ansible_user_id, true) | default('root', true) }}"
+    host_user: "{{ lookup('env', 'USER') | default(ansible_facts['user_id'], true) | default('root', true) }}"
   when: host_user is not defined
 
 - name: Register User Home Directory
@@ -11,4 +11,4 @@
 
 - name: Debug Ansible Distribution
   ansible.builtin.debug:
-    msg: "Detected OS: {{ ansible_distribution }}, User: {{ host_user }}, Home: {{ host_user_home }}"
+    msg: "Detected OS: {{ ansible_facts['distribution'] }}, User: {{ host_user }}, Home: {{ host_user_home }}"

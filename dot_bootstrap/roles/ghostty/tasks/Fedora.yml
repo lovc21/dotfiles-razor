@@ -1,5 +1,5 @@
 ---
-- name: "ghostty | {{ ansible_distribution }} | Install build dependencies"
+- name: "ghostty | {{ ansible_facts['distribution'] }} | Install build dependencies"
   ansible.builtin.dnf:
     name:
       - gtk4-devel
@@ -8,12 +8,12 @@
     state: present
   become: true
 
-- name: "ghostty | {{ ansible_distribution }} | Check if ghostty is installed"
+- name: "ghostty | {{ ansible_facts['distribution'] }} | Check if ghostty is installed"
   ansible.builtin.stat:
     path: /usr/local/bin/ghostty
   register: ghostty_installed
 
-- name: "ghostty | {{ ansible_distribution }} | Clone ghostty"
+- name: "ghostty | {{ ansible_facts['distribution'] }} | Clone ghostty"
   ansible.builtin.git:
     repo: https://github.com/ghostty-org/ghostty.git
     dest: /tmp/ghostty
@@ -21,7 +21,7 @@
   become: false
   when: not ghostty_installed.stat.exists
 
-- name: "ghostty | {{ ansible_distribution }} | Build and install ghostty"
+- name: "ghostty | {{ ansible_facts['distribution'] }} | Build and install ghostty"
   ansible.builtin.shell: |
     cd /tmp/ghostty
     zig build -p /usr/local -Doptimize=ReleaseFast

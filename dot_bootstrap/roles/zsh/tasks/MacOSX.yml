@@ -6,7 +6,7 @@
   loop:
     - zsh
   become: false
-  become_user: "{{ ansible_user_id }}"
+  become_user: "{{ ansible_facts['user_id'] }}"
 
 - name: "Zsh | Set default terminal"
   ansible.builtin.user:

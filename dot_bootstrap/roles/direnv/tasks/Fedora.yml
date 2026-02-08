@@ -1,5 +1,5 @@
 ---
-- name: "direnv | {{ ansible_distribution }} | Install direnv"
+- name: "direnv | {{ ansible_facts['distribution'] }} | Install direnv"
   ansible.builtin.dnf:
     name: direnv
     state: present

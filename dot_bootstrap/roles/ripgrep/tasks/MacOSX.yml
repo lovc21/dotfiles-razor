@@ -4,4 +4,4 @@
     name: ripgrep
     state: present
   become: false
-  become_user: "{{ ansible_user_id }}"
+  become_user: "{{ ansible_facts['user_id'] }}"

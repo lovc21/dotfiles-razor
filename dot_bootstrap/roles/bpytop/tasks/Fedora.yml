@@ -13,13 +13,13 @@
 #     owner: "{{ ansible_user }}"
 #     group: "{{ ansible_user }}"
 #   loop:
-#     - "{{ ansible_env.HOME }}/.config"
-#     - "{{ ansible_env.HOME }}/.config/btop"
+#     - "{{ ansible_facts['env'].HOME }}/.config"
+#     - "{{ ansible_facts['env'].HOME }}/.config/btop"
 # 
 # - name: "BTOP | Fedora | Copy btop config"
 #   ansible.builtin.copy:
 #     src: btop.conf
-#     dest: "{{ ansible_env.HOME }}/.config/btop/btop.conf"
+#     dest: "{{ ansible_facts['env'].HOME }}/.config/btop/btop.conf"
 #     mode: "0644"
 #     owner: "{{ ansible_user }}"
 #     group: "{{ ansible_user }}"

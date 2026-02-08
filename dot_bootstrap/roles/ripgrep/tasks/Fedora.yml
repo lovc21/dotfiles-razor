@@ -1,5 +1,5 @@
 ---
-- name: "ripgrep | {{ ansible_distribution }} | Install ripgrep"
+- name: "ripgrep | {{ ansible_facts['distribution'] }} | Install ripgrep"
   ansible.builtin.dnf:
     name: ripgrep
     state: present

@@ -1,5 +1,5 @@
 ---
-- name: "ansible | {{ ansible_distribution }} | Install ansible"
+- name: "ansible | {{ ansible_facts['distribution'] }} | Install ansible"
   ansible.builtin.dnf:
     name: ansible
     state: present

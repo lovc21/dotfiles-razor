@@ -40,7 +40,7 @@
       block:
         - name: "NPM | Determine system architecture"
           ansible.builtin.set_fact:
-            nodejs_arch: "{{ ansible_machine | replace('x86_64', 'x64') | replace('aarch64', 'arm64') }}"
+            nodejs_arch: "{{ ansible_facts['machine'] | replace('x86_64', 'x64') | replace('aarch64', 'arm64') }}"
 
         - name: "NPM | Construct NodeJS package name"
           ansible.builtin.set_fact:
