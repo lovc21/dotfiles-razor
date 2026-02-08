@@ -27,7 +27,7 @@
   block:
     - name: "zig | {{ ansible_facts['distribution'] }} | Download zig"
       ansible.builtin.get_url:
-        url: "https://ziglang.org/download/{{ zig_version }}/zig-linux-{{ zig_arch }}-{{ zig_version }}.tar.xz"
+        url: "{{ zig_download_json.json[zig_version][ansible_facts['machine'] + '-linux'].tarball }}"
         dest: "/tmp/zig-{{ zig_version }}.tar.xz"
         mode: "0644"
         force: true
