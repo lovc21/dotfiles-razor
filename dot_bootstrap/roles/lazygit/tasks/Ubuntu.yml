@@ -61,6 +61,7 @@
       ansible.builtin.unarchive:
         src: "/tmp/{{ lazygit_file }}.tar.gz"
         dest: /tmp
+        remote_src: true
 
     - name: "LAZYGIT | Remove any current lazygit installations"
       ansible.builtin.file:
