@@ -26,7 +26,7 @@ jobs:
 
       - name: Install chezmoi and bootstrap
         run: |
-          sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply ${{ env.GITHUB_USERNAME }}
+          sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply https://github.com/${{ env.GITHUB_USERNAME }}/dotfiles-razor.git
         env:
           ANSIBLE_FORCE_COLOR: true
 
@@ -111,7 +111,7 @@ jobs:
 
       - name: Install chezmoi and bootstrap
         run: |
-          sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply ${{ env.GITHUB_USERNAME }}
+          sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply https://github.com/${{ env.GITHUB_USERNAME }}/dotfiles-razor.git
         env:
           ANSIBLE_FORCE_COLOR: true
 
@@ -165,7 +165,7 @@ jobs:
 
       - name: Install chezmoi and bootstrap
         run: |
-          sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply ${{ env.GITHUB_USERNAME }}
+          sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply https://github.com/${{ env.GITHUB_USERNAME }}/dotfiles-razor.git
         env:
           ANSIBLE_FORCE_COLOR: true
 
