@@ -59,8 +59,6 @@
         dest: "/tmp/"
         mode: "0644"
         force: true
-      notify:
-        - Cleanup lazygit downloaded tar
 
     - name: "LAZYGIT | Ensure clean extraction destination"
       ansible.builtin.file:
@@ -89,6 +87,4 @@
         force: true
         mode: "0755"
       become: true
-      notify:
-        - Remove extracted lazygit directory
 
