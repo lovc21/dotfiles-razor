@@ -1,0 +1,6 @@
+---
+- name: "vlc | MacOSX | Install vlc"
+  community.general.homebrew_cask:
+    name: vlc
+    state: present
+  become: false

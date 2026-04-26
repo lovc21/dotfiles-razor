@@ -1,0 +1,5 @@
+---
+- name: "element-desktop | {{ ansible_facts['distribution'] }} | Install element via flatpak"
+  community.general.flatpak:
+    name: im.riot.Riot
+    state: present

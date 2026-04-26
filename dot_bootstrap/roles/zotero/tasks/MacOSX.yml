@@ -1,0 +1,6 @@
+---
+- name: "zotero | MacOSX | Install zotero"
+  community.general.homebrew_cask:
+    name: zotero
+    state: present
+  become: false

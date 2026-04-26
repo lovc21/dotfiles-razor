@@ -1,0 +1,6 @@
+---
+- name: "vlc | {{ ansible_facts['distribution'] }} | Install vlc"
+  ansible.builtin.dnf:
+    name: vlc
+    state: present
+  become: true

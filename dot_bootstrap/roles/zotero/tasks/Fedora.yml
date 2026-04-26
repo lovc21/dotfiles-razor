@@ -1,0 +1,5 @@
+---
+- name: "zotero | {{ ansible_facts['distribution'] }} | Install zotero via flatpak"
+  community.general.flatpak:
+    name: org.zotero.Zotero
+    state: present

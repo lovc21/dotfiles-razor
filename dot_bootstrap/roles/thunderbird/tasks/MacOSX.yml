@@ -1,0 +1,6 @@
+---
+- name: "thunderbird | MacOSX | Install thunderbird"
+  community.general.homebrew_cask:
+    name: thunderbird
+    state: present
+  become: false

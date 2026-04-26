@@ -1,0 +1,8 @@
+---
+- name: "zathura | {{ ansible_facts['distribution'] }} | Install zathura"
+  ansible.builtin.apt:
+    name: zathura
+    state: present
+    update_cache: true
+    cache_valid_time: 3600
+  become: true

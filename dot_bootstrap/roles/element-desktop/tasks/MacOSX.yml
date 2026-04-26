@@ -1,0 +1,6 @@
+---
+- name: "element-desktop | MacOSX | Install element"
+  community.general.homebrew_cask:
+    name: element
+    state: present
+  become: false

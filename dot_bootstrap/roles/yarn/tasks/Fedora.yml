@@ -1,0 +1,7 @@
+---
+- name: "yarn | {{ ansible_facts['distribution'] }} | Install yarn globally"
+  community.general.npm:
+    name: yarn
+    global: true
+    state: present
+  become: true

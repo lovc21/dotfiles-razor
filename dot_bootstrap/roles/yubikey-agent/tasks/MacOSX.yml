@@ -1,0 +1,9 @@
+---
+- name: "yubikey-agent | MacOSX | Install yubikey-agent and pinentry-mac via brew"
+  community.general.homebrew:
+    name:
+      - yubikey-agent
+      - pinentry-mac
+    state: present
+  become: false
+  become_user: "{{ ansible_facts['user_id'] }}"

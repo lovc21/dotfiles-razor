@@ -1,0 +1,8 @@
+---
+- name: "diffuse | {{ ansible_facts['distribution'] }} | Install diffuse"
+  ansible.builtin.apt:
+    name: diffuse
+    state: present
+    update_cache: true
+    cache_valid_time: 3600
+  become: true

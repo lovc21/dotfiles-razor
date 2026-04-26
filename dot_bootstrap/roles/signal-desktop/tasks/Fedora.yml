@@ -1,0 +1,5 @@
+---
+- name: "signal-desktop | {{ ansible_facts['distribution'] }} | Install signal-desktop via flatpak"
+  community.general.flatpak:
+    name: org.signal.Signal
+    state: present

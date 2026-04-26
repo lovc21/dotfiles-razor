@@ -1,0 +1,6 @@
+---
+- name: "glab | {{ ansible_facts['distribution'] }} | Install glab"
+  ansible.builtin.dnf:
+    name: glab
+    state: present
+  become: true

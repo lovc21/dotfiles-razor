@@ -1,0 +1,7 @@
+---
+- name: "pnpm | {{ ansible_facts['distribution'] }} | Install pnpm globally"
+  community.general.npm:
+    name: pnpm
+    global: true
+    state: present
+  become: true

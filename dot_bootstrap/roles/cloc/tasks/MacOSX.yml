@@ -1,0 +1,7 @@
+---
+- name: "cloc | MacOSX | Install cloc"
+  community.general.homebrew:
+    name: cloc
+    state: present
+  become: false
+  become_user: "{{ ansible_facts['user_id'] }}"

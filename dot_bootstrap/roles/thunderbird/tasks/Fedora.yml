@@ -1,0 +1,6 @@
+---
+- name: "thunderbird | {{ ansible_facts['distribution'] }} | Install thunderbird"
+  ansible.builtin.dnf:
+    name: thunderbird
+    state: present
+  become: true

@@ -1,0 +1,7 @@
+---
+- name: "bitwise | MacOSX | Install bitwise"
+  community.general.homebrew:
+    name: bitwise
+    state: present
+  become: false
+  become_user: "{{ ansible_facts['user_id'] }}"

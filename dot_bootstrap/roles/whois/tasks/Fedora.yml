@@ -1,0 +1,6 @@
+---
+- name: "whois | {{ ansible_facts['distribution'] }} | Install whois"
+  ansible.builtin.dnf:
+    name: whois
+    state: present
+  become: true

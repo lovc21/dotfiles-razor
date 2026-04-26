@@ -1,0 +1,21 @@
+---
+- name: "signal-desktop | {{ ansible_facts['distribution'] }} | Add Signal GPG key"
+  ansible.builtin.get_url:
+    url: https://updates.signal.org/desktop/apt/keys.asc
+    dest: /usr/share/keyrings/signal-desktop-keyring.asc
+    mode: "0644"
+  become: true
+
+- name: "signal-desktop | {{ ansible_facts['distribution'] }} | Add Signal apt repository"
+  ansible.builtin.apt_repository:
+    repo: "deb [arch=amd64 signed-by=/usr/share/keyrings/signal-desktop-keyring.asc] https://updates.signal.org/desktop/apt xenial main"
+    filename: signal-xenial
+    state: present
+    update_cache: true
+  become: true
+
+- name: "signal-desktop | {{ ansible_facts['distribution'] }} | Install signal-desktop"
+  ansible.builtin.apt:
+    name: signal-desktop
+    state: present
+  become: true

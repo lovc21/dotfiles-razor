@@ -1,0 +1,8 @@
+---
+- name: "glab | {{ ansible_facts['distribution'] }} | Install glab"
+  ansible.builtin.apt:
+    name: glab
+    state: present
+    update_cache: true
+    cache_valid_time: 3600
+  become: true

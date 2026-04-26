@@ -1,0 +1,6 @@
+---
+- name: "gnome-boxes | {{ ansible_facts['distribution'] }} | Install gnome-boxes"
+  ansible.builtin.dnf:
+    name: gnome-boxes
+    state: present
+  become: true

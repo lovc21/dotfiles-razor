@@ -1,0 +1,7 @@
+---
+- name: "yarn | MacOSX | Install yarn"
+  community.general.homebrew:
+    name: yarn
+    state: present
+  become: false
+  become_user: "{{ ansible_facts['user_id'] }}"

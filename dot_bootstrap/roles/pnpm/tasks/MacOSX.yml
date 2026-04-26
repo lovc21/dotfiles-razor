@@ -1,0 +1,7 @@
+---
+- name: "pnpm | MacOSX | Install pnpm"
+  community.general.homebrew:
+    name: pnpm
+    state: present
+  become: false
+  become_user: "{{ ansible_facts['user_id'] }}"

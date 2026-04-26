@@ -1,0 +1,6 @@
+---
+- name: "transmission | MacOSX | Install transmission"
+  community.general.homebrew_cask:
+    name: transmission
+    state: present
+  become: false

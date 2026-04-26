@@ -1,0 +1,6 @@
+---
+- name: "slack | MacOSX | Install slack"
+  community.general.homebrew_cask:
+    name: slack
+    state: present
+  become: false

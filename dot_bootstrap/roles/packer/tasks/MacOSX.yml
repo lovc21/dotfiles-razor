@@ -1,0 +1,14 @@
+---
+- name: "Packer | MacOSX | Tap hashicorp/tap"
+  community.general.homebrew_tap:
+    name: hashicorp/tap
+    state: present
+  become: false
+  become_user: "{{ ansible_facts['user_id'] }}"
+
+- name: "Packer | MacOSX | Install Packer"
+  community.general.homebrew:
+    name: hashicorp/tap/packer
+    state: present
+  become: false
+  become_user: "{{ ansible_facts['user_id'] }}"

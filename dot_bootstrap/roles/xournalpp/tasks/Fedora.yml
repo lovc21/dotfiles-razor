@@ -1,0 +1,6 @@
+---
+- name: "xournalpp | {{ ansible_facts['distribution'] }} | Install xournalpp"
+  ansible.builtin.dnf:
+    name: xournalpp
+    state: present
+  become: true

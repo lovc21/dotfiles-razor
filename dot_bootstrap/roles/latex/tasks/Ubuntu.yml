@@ -1,0 +1,11 @@
+---
+- name: "latex | {{ ansible_facts['distribution'] }} | Install TeX Live and latexmk"
+  ansible.builtin.apt:
+    name:
+      - texlive-full
+      - texlive-latex-base
+      - latexmk
+    state: present
+    update_cache: true
+    cache_valid_time: 3600
+  become: true

@@ -1,0 +1,6 @@
+---
+- name: "latex | MacOSX | Install MacTeX (full) cask"
+  community.general.homebrew_cask:
+    name: mactex
+    state: present
+  become: false

@@ -1,0 +1,6 @@
+---
+- name: "gping | {{ ansible_facts['distribution'] }} | Install gping"
+  ansible.builtin.dnf:
+    name: gping
+    state: present
+  become: true

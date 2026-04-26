@@ -1,0 +1,7 @@
+---
+- name: "gemini-cli | MacOSX | Install @google/gemini-cli globally"
+  community.general.npm:
+    name: "@google/gemini-cli"
+    global: true
+    state: present
+  become: false

@@ -1,0 +1,6 @@
+---
+- name: "signal-desktop | MacOSX | Install signal"
+  community.general.homebrew_cask:
+    name: signal
+    state: present
+  become: false

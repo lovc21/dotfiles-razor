@@ -8,5 +8,5 @@ Host gitlab.com
 Host github.com
   HostName github.com
   PreferredAuthentications publickey
-  IdentitiesOnly yes
+  AddKeysToAgent yes
   IdentityFile ~/.ssh/id_ed25519_sk

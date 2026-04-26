@@ -1,0 +1,6 @@
+---
+- name: "transmission | {{ ansible_facts['distribution'] }} | Install transmission"
+  ansible.builtin.dnf:
+    name: transmission
+    state: present
+  become: true

@@ -1,0 +1,19 @@
+---
+- name: "Packer | {{ ansible_facts['distribution'] }} | Add the HashiCorp GPG key"
+  ansible.builtin.apt_key:
+    url: https://apt.releases.hashicorp.com/gpg
+    keyring: /usr/share/keyrings/hashicorp-archive-keyring.gpg
+    state: present
+  become: true
+
+- name: "Packer | {{ ansible_facts['distribution'] }} | Add the official HashiCorp Linux repository"
+  ansible.builtin.apt_repository:
+    repo: "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com {{ ansible_facts['distribution_release'] }} main"
+    state: present
+  become: true
+
+- name: "Packer | {{ ansible_facts['distribution'] }} | Install Packer"
+  ansible.builtin.apt:
+    name: packer
+    state: present
+  become: true

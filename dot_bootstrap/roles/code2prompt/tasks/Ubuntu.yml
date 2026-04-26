@@ -1,0 +1,13 @@
+---
+- name: "code2prompt | {{ ansible_facts['distribution'] }} | Check if installed"
+  ansible.builtin.stat:
+    path: "{{ host_user_home }}/.cargo/bin/code2prompt"
+  register: code2prompt_installed
+  become: false
+
+- name: "code2prompt | {{ ansible_facts['distribution'] }} | Install via cargo"
+  ansible.builtin.command: "{{ host_user_home }}/.cargo/bin/cargo install code2prompt"
+  args:
+    creates: "{{ host_user_home }}/.cargo/bin/code2prompt"
+  become: false
+  when: not code2prompt_installed.stat.exists

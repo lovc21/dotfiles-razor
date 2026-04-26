@@ -1,0 +1,11 @@
+---
+- name: "zotero | {{ ansible_facts['distribution'] }} | Check if installed"
+  ansible.builtin.command: snap list zotero-snap
+  register: zotero_check
+  changed_when: false
+  failed_when: false
+
+- name: "zotero | {{ ansible_facts['distribution'] }} | Install via snap"
+  ansible.builtin.command: snap install zotero-snap
+  become: true
+  when: zotero_check.rc != 0

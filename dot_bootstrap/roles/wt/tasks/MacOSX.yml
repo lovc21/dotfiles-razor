@@ -1,0 +1,13 @@
+---
+- name: "wt | MacOSX | Check if installed"
+  ansible.builtin.stat:
+    path: "{{ host_user_home }}/.cargo/bin/wt"
+  register: wt_installed
+  become: false
+
+- name: "wt | MacOSX | Install worktrunk via cargo"
+  ansible.builtin.command: "{{ host_user_home }}/.cargo/bin/cargo install worktrunk"
+  args:
+    creates: "{{ host_user_home }}/.cargo/bin/wt"
+  become: false
+  when: not wt_installed.stat.exists

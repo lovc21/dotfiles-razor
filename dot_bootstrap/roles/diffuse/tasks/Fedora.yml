@@ -1,0 +1,6 @@
+---
+- name: "diffuse | {{ ansible_facts['distribution'] }} | Install diffuse"
+  ansible.builtin.dnf:
+    name: diffuse
+    state: present
+  become: true

@@ -1,0 +1,6 @@
+---
+- name: "zathura | {{ ansible_facts['distribution'] }} | Install zathura"
+  ansible.builtin.dnf:
+    name: zathura
+    state: present
+  become: true

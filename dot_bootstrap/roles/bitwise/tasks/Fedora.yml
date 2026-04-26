@@ -1,0 +1,6 @@
+---
+- name: "bitwise | {{ ansible_facts['distribution'] }} | Install bitwise"
+  ansible.builtin.dnf:
+    name: bitwise
+    state: present
+  become: true

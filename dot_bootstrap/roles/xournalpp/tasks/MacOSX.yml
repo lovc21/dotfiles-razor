@@ -1,0 +1,6 @@
+---
+- name: "xournalpp | MacOSX | Install xournalpp"
+  community.general.homebrew_cask:
+    name: xournalpp
+    state: present
+  become: false

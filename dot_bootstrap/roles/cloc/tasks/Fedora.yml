@@ -1,0 +1,6 @@
+---
+- name: "cloc | {{ ansible_facts['distribution'] }} | Install cloc"
+  ansible.builtin.dnf:
+    name: cloc
+    state: present
+  become: true

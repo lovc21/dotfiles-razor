@@ -1,0 +1,7 @@
+---
+- name: "glab | MacOSX | Install glab"
+  community.general.homebrew:
+    name: glab
+    state: present
+  become: false
+  become_user: "{{ ansible_facts['user_id'] }}"

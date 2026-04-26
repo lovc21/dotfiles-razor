@@ -1,0 +1,8 @@
+---
+- name: "latex | {{ ansible_facts['distribution'] }} | Install TeX Live scheme-full and latexmk"
+  ansible.builtin.dnf:
+    name:
+      - texlive-scheme-full
+      - latexmk
+    state: present
+  become: true

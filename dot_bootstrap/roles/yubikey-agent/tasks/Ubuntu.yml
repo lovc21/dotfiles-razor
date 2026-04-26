@@ -1,0 +1,23 @@
+---
+- name: "yubikey-agent | {{ ansible_facts['distribution'] }} | Install yubikey-agent and supporting packages"
+  ansible.builtin.apt:
+    name:
+      - yubikey-agent
+      - ssh-askpass
+      - pcscd
+      - scdaemon
+      - opensc-pkcs11
+      - pinentry-curses
+      - pinentry-gtk2
+      - pinentry-tty
+    state: present
+    update_cache: true
+    cache_valid_time: 3600
+  become: true
+
+- name: "yubikey-agent | {{ ansible_facts['distribution'] }} | Ensure pcscd service is enabled and running"
+  ansible.builtin.systemd:
+    name: pcscd
+    enabled: true
+    state: started
+  become: true

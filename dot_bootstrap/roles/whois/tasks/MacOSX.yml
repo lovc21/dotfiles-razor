@@ -1,0 +1,7 @@
+---
+- name: "whois | MacOSX | Install whois"
+  community.general.homebrew:
+    name: whois
+    state: present
+  become: false
+  become_user: "{{ ansible_facts['user_id'] }}"

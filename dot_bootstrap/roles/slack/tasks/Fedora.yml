@@ -1,0 +1,5 @@
+---
+- name: "slack | {{ ansible_facts['distribution'] }} | Install slack via flatpak"
+  community.general.flatpak:
+    name: com.slack.Slack
+    state: present

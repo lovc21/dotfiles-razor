@@ -61,6 +61,38 @@ default_roles:
   - virt-manager
   - yubikey-manager
   - yubioath-desktop
+  - yubikey-agent
+  # Dev tools
+  - glab
+  - gping
+  - packer
+  - bitwise
+  - cloc
+  - whois
+  - latex
+  # Cargo crates (require rust)
+  - code2prompt
+  - topgrade
+  - wt
+  # NPM globals (require nodejs)
+  - gemini-cli
+  - pnpm
+  - yarn
+  # GUI / desktop apps
+  - signal-desktop
+  - element-desktop
+  - gnome-boxes
+  - transmission
+  - xournalpp
+  - zathura
+  - diffuse
+  # Snap apps
+  - betaflight-configurator
+  - slack
+  - thunderbird
+  - vlc
+  - wireguard-dtp
+  - zotero
 exclude_roles: []
 
 wallpaper_path: "{{ role_path }}/b-098.jpg"

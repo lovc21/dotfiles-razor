@@ -1,0 +1,13 @@
+---
+- name: "topgrade | {{ ansible_facts['distribution'] }} | Check if installed"
+  ansible.builtin.stat:
+    path: "{{ host_user_home }}/.cargo/bin/topgrade"
+  register: topgrade_installed
+  become: false
+
+- name: "topgrade | {{ ansible_facts['distribution'] }} | Install via cargo"
+  ansible.builtin.command: "{{ host_user_home }}/.cargo/bin/cargo install topgrade"
+  args:
+    creates: "{{ host_user_home }}/.cargo/bin/topgrade"
+  become: false
+  when: not topgrade_installed.stat.exists

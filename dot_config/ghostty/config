@@ -2,7 +2,7 @@
 background-opacity = 0.8
 
 # Themes for Light and Dark Modes
-theme = tokyonight
+theme = TokyoNight
 
 # Font Settings
 font-family = "JetBrains Mono"
