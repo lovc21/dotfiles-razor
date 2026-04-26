@@ -54,6 +54,12 @@
         dest: "{{ nodejs_temp_dir }}/{{ nodejs_package_name }}.tar.xz"
         mode: "0644"
 
+    - name: "NPM | Ensure NodeJS extraction directory exists"
+      ansible.builtin.file:
+        path: "{{ nodejs_temp_dir }}/{{ nodejs_package_name }}"
+        state: directory
+        mode: "0755"
+
     - name: "NPM | Extract NodeJS tarball"
       ansible.builtin.unarchive:
         src: "{{ nodejs_temp_dir }}/{{ nodejs_package_name }}.tar.xz"
