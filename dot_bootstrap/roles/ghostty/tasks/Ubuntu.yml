@@ -1,30 +1,21 @@
 ---
-- name: "ghostty | {{ ansible_facts['distribution'] }} | Install build dependencies"
+- name: "ghostty | {{ ansible_facts['distribution'] }} | Install software-properties-common (for add-apt-repository)"
   ansible.builtin.apt:
-    name:
-      - libgtk-4-dev
-      - libadwaita-1-dev
-      - git
-      - gettext
+    name: software-properties-common
+    state: present
+    update_cache: true
+    cache_valid_time: 3600
+  become: true
+
+- name: "ghostty | {{ ansible_facts['distribution'] }} | Add mkasberg/ghostty PPA"
+  ansible.builtin.apt_repository:
+    repo: ppa:mkasberg/ghostty
+    state: present
+    update_cache: true
+  become: true
+
+- name: "ghostty | {{ ansible_facts['distribution'] }} | Install ghostty"
+  ansible.builtin.apt:
+    name: ghostty
     state: present
   become: true
-
-- name: "ghostty | {{ ansible_facts['distribution'] }} | Check if ghostty is installed"
-  ansible.builtin.stat:
-    path: /usr/local/bin/ghostty
-  register: ghostty_installed
-
-- name: "ghostty | {{ ansible_facts['distribution'] }} | Clone ghostty"
-  ansible.builtin.git:
-    repo: https://github.com/ghostty-org/ghostty.git
-    dest: /tmp/ghostty
-    depth: 1
-  become: false
-  when: not ghostty_installed.stat.exists
-
-- name: "ghostty | {{ ansible_facts['distribution'] }} | Build and install ghostty"
-  ansible.builtin.shell: |
-    cd /tmp/ghostty
-    zig build -p /usr/local -Doptimize=ReleaseFast
-  become: true
-  when: not ghostty_installed.stat.exists

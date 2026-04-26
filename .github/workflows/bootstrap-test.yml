@@ -155,11 +155,11 @@ jobs:
 
       - name: Install prerequisites
         run: |
-          brew install git curl
+          brew install git curl chezmoi
 
-      - name: Install chezmoi and bootstrap
+      - name: Bootstrap with chezmoi
         run: |
-          sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply https://github.com/${{ env.GITHUB_USERNAME }}/dotfiles-razor.git
+          chezmoi init --apply https://github.com/${{ env.GITHUB_USERNAME }}/dotfiles-razor.git
         env:
           ANSIBLE_FORCE_COLOR: true
 
